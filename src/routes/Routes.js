@@ -15,13 +15,17 @@ import Profile from '../pages/Profile';
 import DoneRecipes from '../pages/DoneRecipes';
 import FavoriteRecipes from '../pages/FavoriteRecipes';
 import NotFound from '../pages/NotFound';
+import DrinksDetails from '../pages/DrinkDetails';
+import FoodsDetails from '../pages/FoodDetails';
 
 function Routes() {
   return (
     <Switch>
       <Route exact path="/" component={ Login } />
       <Route path="/foods" component={ Foods } />
+      <Route path="/drink-details" component={ FoodsDetails } />
       <Route path="/drinks" component={ Drinks } />
+      <Route path="/drink-details" component={ DrinksDetails } />
       <Route path="/foods-in-progress" component={ FoodsInProgress } />
       <Route path="/drinks-in-progress" component={ DrinksInProgress } />
       <Route path="/explore" component={ Explore } />
