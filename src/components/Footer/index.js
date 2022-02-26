@@ -1,22 +1,42 @@
 import React from 'react';
+import { useHistory } from 'react-router-dom';
 import FoodIcon from '../../images/mealIcon.svg';
 import DrinkIcon from '../../images/drinkIcon.svg';
 import ExploreIcon from '../../images/exploreIcon.svg';
 
 function Footer() {
+  const history = useHistory();
+
   return (
     <footer
-      className="flex flex-row justify-around border-b-0 border-solid border-2
-     bg-orange-500 fixed bottom-0 left-0 right-0 items-center"
+      className="footer"
     >
       <div>
-        <img src={ DrinkIcon } alt="Icone Drink" />
+        <img
+          src={ DrinkIcon }
+          alt="Icone Drink"
+          onClick={ () => history.push('/drinks') }
+          aria-hidden="true"
+          width={ 40 }
+        />
       </div>
       <div>
-        <img src={ ExploreIcon } alt="Icone Drink" />
+        <img
+          src={ ExploreIcon }
+          alt="Icone Drink"
+          onClick={ () => history.push('/explore') }
+          aria-hidden="true"
+          width={ 40 }
+        />
       </div>
       <div>
-        <img src={ FoodIcon } alt="Icone Foods" />
+        <img
+          src={ FoodIcon }
+          alt="Icone Foods"
+          onClick={ () => history.push('/foods') }
+          aria-hidden="true"
+          width={ 40 }
+        />
       </div>
 
     </footer>

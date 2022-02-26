@@ -1,7 +1,9 @@
 import React from 'react';
 
 function DrinksInProgress() {
-  return <div />;
+  return (
+    <div> </div>
+  );
 }
 
 export default DrinksInProgress;

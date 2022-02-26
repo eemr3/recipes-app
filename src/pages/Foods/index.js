@@ -1,9 +1,13 @@
 import React from 'react';
 import Footer from '../../components/Footer';
+import Header from '../../components/Header';
 
 function Foods() {
   return (
-    <Footer />
+    <div>
+      <Header title="Comidas" isSearch />
+      <Footer />
+    </div>
   );
 }
 
