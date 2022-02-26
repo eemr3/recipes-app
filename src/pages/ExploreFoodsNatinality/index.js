@@ -1,7 +1,10 @@
 import React from 'react';
+import Header from '../../components/Header';
 
 export default function ExploreFoodsNatinality() {
   return (
-    <div>ExploreFoodsNatinality</div>
+    <div>
+      <Header title="Explorar Comidas por Nacionalidade" isSearch />
+    </div>
   );
 }
