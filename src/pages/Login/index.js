@@ -1,12 +1,17 @@
 import React, { useState } from 'react';
-// import { useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import CoverScreenLogin from '../../images/CoverScreenLogin.svg';
 import Button from './components/Button';
 import Input from './components/Input';
 import Content from './components/Content';
+import {
+  setCocktailsTokenInStorage,
+  setEmailInStorage,
+  setMealsTokenInStorage,
+} from '../../functions/loginStorage';
 
 function Login() {
-  // const history = useHistory();
+  const history = useHistory();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
@@ -25,6 +30,7 @@ function Login() {
     setMealsTokenInStorage(1);
     setCocktailsTokenInStorage(1);
     setEmailInStorage(email);
+    history.push('/foods');
   };
 
   return (
