@@ -1,15 +1,20 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import Search from './header-components/Search';
+import NavIcons from './header-components/NavIcons';
 
 function Header({ title, isSearch }) {
+  const [enable, setEnable] = useState(false);
+
   return (
     <header className="header">
-      <FontAwesomeIcon icon="fa-solid fa-user" size="2x" color="#f5f5f5" />
-      <h1 className="title">{ title }</h1>
-      { isSearch ? (
-        <FontAwesomeIcon icon="fa-solid fa-magnifying-glass" size="2x" color="#f5f5f5" />)
-        : (<div />) }
+      <NavIcons
+        title={ title }
+        isSearch={ isSearch }
+        enable={ enable }
+        setEnable={ setEnable }
+      />
+      { enable && <Search /> }
     </header>
   );
 }
