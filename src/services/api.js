@@ -29,7 +29,7 @@ export const requestNameFoods = async (name, router) => {
   }
   const response = await fetch(URL);
   const data = await response.json();
-  return data.meals;
+  return data;
 };
 
 export const requestIngredientFoods = async (ingredient, router) => {
@@ -41,7 +41,7 @@ export const requestIngredientFoods = async (ingredient, router) => {
   }
   const response = await fetch(URL);
   const data = await response.json();
-  return data.meals;
+  return data;
 };
 
 export const requestFirstNameFoods = async (firstName, router) => {
@@ -53,5 +53,5 @@ export const requestFirstNameFoods = async (firstName, router) => {
   }
   const response = await fetch(URL);
   const data = await response.json();
-  return data.meals;
+  return data;
 };

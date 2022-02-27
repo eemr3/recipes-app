@@ -5,16 +5,10 @@ import {
   requestNameFoods, requestIngredientFoods, requestFirstNameFoods,
 } from '../../../services/api';
 
-const TWELVE = 12;
-
 export default function Search() {
   const { location: { pathname } } = useHistory();
 
-  const {
-    setNameSearch,
-    setIngredientSearch,
-    setFirstSearch,
-  } = useContext(GlobalContext);
+  const { setSearchBar } = useContext(GlobalContext);
   const [search, setSearch] = useState('');
   const [searchType, setSearchType] = useState('');
 
@@ -29,31 +23,37 @@ export default function Search() {
   const getNameSearch = async (router) => {
     try {
       const data = await requestNameFoods(search, router);
-      setNameSearch(data.slice(0, TWELVE));
+      setSearchBar(data);
     } catch (error) {
-      console.error(error);
+      console.log(error.name);
+      setSearchBar([error.name]);
     }
   };
 
   const getIngredientSearch = async (router) => {
     try {
       const data = await requestIngredientFoods(search, router);
-      setIngredientSearch(data.slice(0, TWELVE));
+      setSearchBar(data);
     } catch (error) {
-      console.error(error);
+      setSearchBar([error.name]);
     }
   };
 
   const getFirstNameSearch = async (router) => {
     try {
       const data = await requestFirstNameFoods(search, router);
-      setFirstSearch(data.slice(0, TWELVE));
+      setSearchBar(data);
     } catch (error) {
-      console.error(error);
+      setSearchBar([error.name]);
     }
   };
 
   const handleClick = (type) => {
+    if (type === 'firstName' && search.length !== 1) {
+      setSearch('');
+      return global.alert('Sua pesquisa deve ter apenas 1 (uma) letra!');
+    }
+    setSearch('');
     switch (type) {
     case 'name':
       return getNameSearch(pathname);
@@ -62,7 +62,7 @@ export default function Search() {
     case 'firstName':
       return getFirstNameSearch(pathname);
     default:
-      return '';
+      return null;
     }
   };
 
@@ -113,7 +113,7 @@ export default function Search() {
             value="firstName"
             onChange={ handleChange }
           />
-          { ' Primeiro Nome' }
+          { ' Primeira Letra' }
         </label>
       </div>
     </div>

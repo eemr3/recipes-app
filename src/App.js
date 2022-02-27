@@ -8,7 +8,6 @@ function App() {
     <GlobalProvider>
       <Routes />
     </GlobalProvider>
-    <Routes />
   );
 }
 
