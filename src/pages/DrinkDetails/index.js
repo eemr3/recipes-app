@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default function DrinksDetails() {
+export default function DrinkDetails() {
   return (
     <div>DrinksDetails</div>
   );
