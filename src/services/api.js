@@ -29,7 +29,8 @@ export const requestCategoryFoods = async (domain) => {
   } catch (error) {
     console.log(error);
   }
-  
+};
+
 export const requestNameFoods = async (name, router) => {
   let URL = '';
   if (router === '/foods') {
