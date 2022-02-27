@@ -2,9 +2,9 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
-function Cards({ name, image, url, idMeal }) {
+function Cards({ name, image, url }) {
   return (
-    <Link to={ `/${url}/${idMeal}` }>
+    <Link to={ url }>
       <div className="group relative">
         <div
           className="w-full min-h-80 bg-gray-200 aspect-w-1 aspect-h-1
@@ -32,14 +32,12 @@ Cards.propTypes = {
   name: PropTypes.string,
   image: PropTypes.string,
   url: PropTypes.string,
-  idMeal: PropTypes.string,
 };
 
 Cards.defaultProps = {
   name: '',
   image: '',
   url: '',
-  idMeal: '',
 };
 
 export default Cards;
