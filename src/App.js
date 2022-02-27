@@ -1,14 +1,13 @@
 import React from 'react';
 import './App.css';
-import Footer from './components/Footer';
 import Routes from './routes/Routes';
+import GlobalProvider from './context/GlobalProvider';
 
 function App() {
   return (
-    <>
+    <GlobalProvider>
       <Routes />
-      <Footer />
-    </>
+    </GlobalProvider>
   );
 }
 
