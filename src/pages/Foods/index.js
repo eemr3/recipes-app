@@ -15,7 +15,7 @@ function Foods() {
       setMeals(respose.slice(0, TWELVE));
     };
     getAllMeals();
-  });
+  }, []);
 
   return (
     <div>
