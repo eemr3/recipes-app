@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Cards from '../../components/Cards';
 import Footer from '../../components/Footer';
+import GroupButton from '../../components/GroupButton';
 import Header from '../../components/Header';
 import Loading from '../../components/Loading';
 import { requestAllDrinks } from '../../services/api';
@@ -21,6 +22,7 @@ function Drinks() {
   return (
     <div>
       <Header title="Bebidas" isSearch />
+      <GroupButton route="drinks" />
       <div>
         {drinks.length === 0 ? (<Loading />) : (
           <div

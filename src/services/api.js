@@ -20,6 +20,16 @@ export const requestAllDrinks = async () => {
   }
 };
 
+export const requestCategoryFoods = async (domain) => {
+  const URL = `https://www.${domain}.com/api/json/v1/1/list.php?c=list`;
+  try {
+    const respose = await fetch(URL);
+    const data = await respose.json();
+    return data;
+  } catch (error) {
+    console.log(error);
+  }
+  
 export const requestNameFoods = async (name, router) => {
   let URL = '';
   if (router === '/foods') {
