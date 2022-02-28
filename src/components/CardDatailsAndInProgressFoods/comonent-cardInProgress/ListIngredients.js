@@ -22,7 +22,6 @@ function ListIngredients({ inProgress, listIngredients }) {
             </span>
           </label>
         </li>
-
       ))}
     </ul>
   );
@@ -30,9 +29,7 @@ function ListIngredients({ inProgress, listIngredients }) {
 
 ListIngredients.propTypes = {
   inProgress: PropTypes.bool,
-  listIngredients: PropTypes.arrayOf(PropTypes.oneOfType([
-    PropTypes.string,
-  ])),
+  listIngredients: PropTypes.arrayOf(),
 };
 
 ListIngredients.defaultProps = {
