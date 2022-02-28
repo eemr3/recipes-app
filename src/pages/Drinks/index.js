@@ -1,4 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
+import { useHistory } from 'react-router-dom';
+import GlobalContext from '../../context/GlobalContext';
 import Cards from '../../components/Cards';
 import Footer from '../../components/Footer';
 import GroupButton from '../../components/GroupButton';
@@ -9,8 +11,10 @@ import { requestAllDrinks } from '../../services/api';
 const TWELVE = 12;
 
 function Drinks() {
+  const { push } = useHistory();
+  const { searchBar } = useContext(GlobalContext);
   const [drinks, setDrinks] = useState([]);
-
+  console.log(searchBar);
   useEffect(() => {
     const getDrinks = async () => {
       const response = await requestAllDrinks();
@@ -18,6 +22,13 @@ function Drinks() {
     };
     getDrinks();
   }, []);
+
+  useEffect(() => {
+    if (searchBar.length === 1) push(`/drinks/${searchBar[0].idDrink}`);
+    else if (searchBar.length > 1) {
+      setDrinks(searchBar);
+    }
+  }, [push, searchBar]);
 
   return (
     <div>

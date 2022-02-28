@@ -3,19 +3,13 @@ import PropTypes from 'prop-types';
 import GlobalContext from './GlobalContext';
 
 function GlobalProvider({ children }) {
-  const [nameSearch, setNameSearch] = useState();
-  const [ingredientSearch, setIngredientSearch] = useState();
-  const [firstSearch, setFirstSearch] = useState();
+  const [searchBar, setSearchBar] = useState([]);
 
   return (
     <GlobalContext.Provider
       value={ {
-        nameSearch,
-        setNameSearch,
-        ingredientSearch,
-        setIngredientSearch,
-        firstSearch,
-        setFirstSearch,
+        searchBar,
+        setSearchBar,
       } }
     >
       { children }

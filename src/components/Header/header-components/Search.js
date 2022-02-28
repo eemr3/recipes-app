@@ -1,20 +1,17 @@
 import React, { useContext, useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import GlobalContext from '../../../context/GlobalContext';
 import {
   requestNameFoods, requestIngredientFoods, requestFirstNameFoods,
+  requestNameDrinks, requestIngredientDrinks, requestFirstNameDrinks,
 } from '../../../services/api';
 
-const TWELVE = 12;
+const MESSAGE_ALERT = 'Desculpe, não encontramos nenhuma receita para esses filtros!';
 
 export default function Search() {
-  const { location: { pathname } } = useHistory();
+  const { pathname } = useLocation();
 
-  const {
-    setNameSearch,
-    setIngredientSearch,
-    setFirstSearch,
-  } = useContext(GlobalContext);
+  const { setSearchBar } = useContext(GlobalContext);
   const [search, setSearch] = useState('');
   const [searchType, setSearchType] = useState('');
 
@@ -26,43 +23,54 @@ export default function Search() {
     setSearchType(value);
   };
 
-  const getNameSearch = async (router) => {
-    try {
-      const data = await requestNameFoods(search, router);
-      setNameSearch(data.slice(0, TWELVE));
-    } catch (error) {
-      console.error(error);
+  const getNameSearch = async () => {
+    let data;
+    if (pathname === '/foods') data = await requestNameFoods(search);
+    if (pathname === '/drinks') data = await requestNameDrinks(search);
+    if (data === null || data === undefined) {
+      setSearchBar([]);
+      return global.alert(MESSAGE_ALERT);
     }
+    setSearchBar(data);
   };
 
-  const getIngredientSearch = async (router) => {
-    try {
-      const data = await requestIngredientFoods(search, router);
-      setIngredientSearch(data.slice(0, TWELVE));
-    } catch (error) {
-      console.error(error);
+  const getIngredientSearch = async () => {
+    let data;
+    if (pathname === '/foods') data = await requestIngredientFoods(search);
+    if (pathname === '/drinks') data = await requestIngredientDrinks(search);
+    if (data === null || data === undefined) {
+      setSearchBar([]);
+      return global.alert(MESSAGE_ALERT);
     }
+    setSearchBar(data);
   };
 
-  const getFirstNameSearch = async (router) => {
-    try {
-      const data = await requestFirstNameFoods(search, router);
-      setFirstSearch(data.slice(0, TWELVE));
-    } catch (error) {
-      console.error(error);
+  const getFirstNameSearch = async () => {
+    let data;
+    if (pathname === '/foods') data = await requestFirstNameFoods(search);
+    if (pathname === '/drinks') data = await requestFirstNameDrinks(search);
+    if (data === null || data === undefined) {
+      setSearchBar([]);
+      return global.alert(MESSAGE_ALERT);
     }
+    setSearchBar(data);
   };
 
   const handleClick = (type) => {
+    if (type === 'firstName' && search.length !== 1) {
+      setSearch('');
+      return global.alert('Sua pesquisa deve ter apenas 1 (uma) letra!');
+    }
+    setSearch('');
     switch (type) {
     case 'name':
-      return getNameSearch(pathname);
+      return getNameSearch();
     case 'ingredient':
-      return getIngredientSearch(pathname);
+      return getIngredientSearch();
     case 'firstName':
-      return getFirstNameSearch(pathname);
+      return getFirstNameSearch();
     default:
-      return '';
+      return null;
     }
   };
 
@@ -113,7 +121,7 @@ export default function Search() {
             value="firstName"
             onChange={ handleChange }
           />
-          { ' Primeiro Nome' }
+          { ' Primeira Letra' }
         </label>
       </div>
     </div>

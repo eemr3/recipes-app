@@ -1,13 +1,18 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
+import { useHistory } from 'react-router-dom';
+import { requestAllFoods } from '../../services/api';
+import GlobalContext from '../../context/GlobalContext';
 import Cards from '../../components/Cards';
 import Footer from '../../components/Footer';
 import GroupButton from '../../components/GroupButton';
 import Header from '../../components/Header';
 import Loading from '../../components/Loading';
-import { requestAllFoods } from '../../services/api';
 
 const TWELVE = 12;
+
 function Foods() {
+  const { push } = useHistory();
+  const { searchBar } = useContext(GlobalContext);
   const [meals, setMeals] = useState([]);
 
   useEffect(() => {
@@ -17,6 +22,13 @@ function Foods() {
     };
     getAllMeals();
   }, []);
+
+  useEffect(() => {
+    if (searchBar.length === 1) push(`/foods/${searchBar[0].idMeal}`);
+    else if (searchBar.length > 1) {
+      setMeals(searchBar);
+    }
+  }, [push, searchBar]);
 
   return (
     <div>
