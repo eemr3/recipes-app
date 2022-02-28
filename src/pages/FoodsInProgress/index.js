@@ -1,7 +1,28 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
+import CardDatailsAndInProgressFoods
+from '../../components/CardDatailsAndInProgressFoods';
+import { requestDetailFood } from '../../services/api';
 
 function FoodsInProgress() {
-  return <div />;
+  const { id } = useParams();
+  const [inProgressData, setInProgressData] = useState([]);
+
+  useEffect(() => {
+    const getDetailFood = async () => {
+      const response = await requestDetailFood(id);
+      setInProgressData(response);
+    };
+    getDetailFood();
+  }, [id]);
+
+  return (
+    inProgressData.length > 0 && (
+      <CardDatailsAndInProgressFoods
+        recipe={ inProgressData[0] }
+        inProgress
+      />)
+  );
 }
 
 export default FoodsInProgress;
