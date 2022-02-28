@@ -5,6 +5,7 @@ import WhiteHeartIcons from '../../images/whiteHeartIcon.svg';
 import OrangeHeartIcon from '../../images/blackHeartIcon.svg';
 import ShareIcon from '../../images/shareIcon.svg';
 import setFavoriteRecipeInSotage from '../../functions/favoriteRecipes';
+import setDataForInStorage from '../../functions/dataForSaveInStorage';
 
 function ButtonFavorite({ recipe }) {
   const { pathname } = useLocation();
@@ -12,17 +13,18 @@ function ButtonFavorite({ recipe }) {
   const [favoritIcon, setFavoritIcon] = useState(false);
 
   const handleClickFavorite = () => {
-    if (pathname.includes('foods')) {
-      setFavoriteRecipeInSotage({
-        id: recipe.idMeal,
-        type: 'Comida',
-        nationality: recipe.strArea,
-        category: recipe.strCategory,
-        alcoholicOrNot: recipe.strAlcoholic,
-        name: recipe.strMeal,
-        image: recipe.strMealThumb,
-      });
+    switch (pathname) {
+    case pathname.includes('foods'):
+      setFavoriteRecipeInSotage(setDataForInStorage(recipe));
       setFavoritIcon(true);
+      break;
+    // eslint-disable-next-line sonarjs/no-duplicated-branches
+    case pathname.includes('drinks'):
+      setFavoriteRecipeInSotage(setDataForInStorage(recipe));
+      setFavoritIcon(true);
+      break;
+    default:
+      break;
     }
   };
 
