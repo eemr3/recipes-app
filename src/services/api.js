@@ -118,3 +118,25 @@ export const requestCateforyByNameDrinks = async (name) => {
     console.error(error);
   }
 };
+
+export const requestDetailFood = async (id) => {
+  const URL = `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`;
+  try {
+    const response = await fetch(URL);
+    const data = await response.json();
+    return data.meals;
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+export const requestDetailDrink = async (id) => {
+  const URL = `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`;
+  try {
+    const response = await fetch(URL);
+    const data = await response.json();
+    return data.drinks;
+  } catch (error) {
+    console.error(error);
+  }
+};
