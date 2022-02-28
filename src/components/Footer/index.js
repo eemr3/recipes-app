@@ -22,7 +22,7 @@ function Footer() {
             setSelectCategory('All');
           } }
           aria-hidden="true"
-          width={ 40 }
+          width={ 30 }
         />
       </div>
       <div>
@@ -31,7 +31,7 @@ function Footer() {
           alt="Icone Drink"
           onClick={ () => history.push('/explore') }
           aria-hidden="true"
-          width={ 40 }
+          width={ 30 }
         />
       </div>
       <div>
@@ -43,7 +43,7 @@ function Footer() {
             setSelectCategory('All');
           } }
           aria-hidden="true"
-          width={ 40 }
+          width={ 30 }
         />
       </div>
 
