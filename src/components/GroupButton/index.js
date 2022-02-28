@@ -1,11 +1,13 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import PropTypes from 'prop-types';
 import { requestCategoryFoods } from '../../services/api';
+import GlobalContext from '../../context/GlobalContext';
 import Loading from '../Loading';
 
 const FIVE = 5;
 
-function GroupButton({ handleClick, route }) {
+function GroupButton({ route }) {
+  const { setSelectCategory } = useContext(GlobalContext);
   const [categoryBtn, setCategoryBtn] = useState([]);
 
   useEffect(() => {
@@ -28,6 +30,10 @@ function GroupButton({ handleClick, route }) {
     getCategoryFood();
   }, [route]);
 
+  const handleClick = (category) => {
+    setSelectCategory(category);
+  };
+
   return (
 
     categoryBtn.length === 0 ? (<Loading />) : (
@@ -37,7 +43,7 @@ function GroupButton({ handleClick, route }) {
           className="px-6 py-2 text-sm transition-colors duration-300
             rounded-full shadow-md text-violet-100 bg-orange-500
             hover:bg-orange-600 shadow-orange-400 w-28 m-1"
-          onClick={ handleClick }
+          onClick={ () => handleClick('All') }
         >
           All
         </button>
@@ -48,7 +54,7 @@ function GroupButton({ handleClick, route }) {
             className="px-6 py-2 text-sm transition-colors duration-300
             rounded-full shadow-md text-violet-100 bg-orange-500
             hover:bg-orange-600 shadow-orange-400 w-28 m-1"
-            onClick={ handleClick }
+            onClick={ () => handleClick(strCategory) }
           >
             {strCategory.includes('Unknown') ? strCategory.split('/')[0]
               : strCategory.split(' ')[0]}
@@ -60,12 +66,10 @@ function GroupButton({ handleClick, route }) {
 }
 
 GroupButton.propTypes = {
-  handleClick: PropTypes.func,
   route: PropTypes.string,
 };
 
 GroupButton.defaultProps = {
-  handleClick: () => { },
   route: '',
 };
 

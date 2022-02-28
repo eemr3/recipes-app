@@ -1,11 +1,13 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import FoodIcon from '../../images/mealIcon.svg';
 import DrinkIcon from '../../images/drinkIcon.svg';
 import ExploreIcon from '../../images/exploreIcon.svg';
+import GlobalContext from '../../context/GlobalContext';
 
 function Footer() {
   const history = useHistory();
+  const { setSelectCategory } = useContext(GlobalContext);
 
   return (
     <footer
@@ -15,7 +17,10 @@ function Footer() {
         <img
           src={ DrinkIcon }
           alt="Icone Drink"
-          onClick={ () => history.push('/drinks') }
+          onClick={ () => {
+            history.push('/drinks');
+            setSelectCategory('All');
+          } }
           aria-hidden="true"
           width={ 40 }
         />
@@ -33,7 +38,10 @@ function Footer() {
         <img
           src={ FoodIcon }
           alt="Icone Foods"
-          onClick={ () => history.push('/foods') }
+          onClick={ () => {
+            history.push('/foods');
+            setSelectCategory('All');
+          } }
           aria-hidden="true"
           width={ 40 }
         />
