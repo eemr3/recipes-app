@@ -1,11 +1,31 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import ListIngredients from './comonent-cardInProgress/ListIngredients';
-// import WhiteHeartIcons from '../../images/whiteHeartIcon.svg';
-import OrangeHeartIcon from '../../images/blackHeartIcon.svg';
-import ShareIcon from '../../images/shareIcon.svg';
+import ButtonFavorite from '../ButtonFavorite';
+import Button from './comonent-cardInProgress/Button';
 
-function CardDatailsAndInProgressDrinks({ recipe }) {
+function CardDatailsAndInProgressDrinks({ recipe, inDetail, inProgress }) {
+  const [listIngredients, setListIngredients] = useState([]);
+
+  useEffect(() => {
+    const getListIngredients = () => {
+      const listIngredientsAndMeasure = [];
+      const ingredientKeys = Object.keys(recipe)
+        .filter((item) => item.includes('strIngredient'));
+      const measureKeys = Object.keys(recipe)
+        .filter((item) => item.includes('strMeasure'));
+      const ingredients = ingredientKeys.map((key) => recipe[key])
+        .filter((recip) => recip !== null);
+      const measure = measureKeys.map((key) => recipe[key])
+        .filter((recip) => recip !== null);
+      for (let index = 0; index < ingredients.length; index += 1) {
+        listIngredientsAndMeasure.push([ingredients[index], measure[index]]);
+      }
+      setListIngredients(listIngredientsAndMeasure);
+    };
+    getListIngredients();
+  }, [recipe]);
+
   return (
     <div>
       <div
@@ -16,41 +36,30 @@ function CardDatailsAndInProgressDrinks({ recipe }) {
           backgroundSize: 'cover',
         } }
       />
-      <div className="bg-white absolute h-screen w-full md:h-4/5 top-56">
+      <div className="bg-white absolute  w-full md:h-4/5 top-56">
         <div className="flex justify-between items-start mt-5 p-2">
           <div className="flex flex-col">
-            <h2 className="text-2xl">Spicy Arrabiata Penne</h2>
-            <p className="text-gray-400 mt-1">Vegetarian</p>
+            <h2 className="text-2xl">{recipe.strDrink}</h2>
+            <p className="text-gray-400 mt-1">{recipe.strCategory}</p>
           </div>
-          <div className="flex justify-end gap-3 mr-2">
-            <img className="w-7" src={ ShareIcon } alt="Share Icon" />
-            <img className="w-7" src={ OrangeHeartIcon } alt="Favorite Icon" />
-          </div>
-
+          <ButtonFavorite recipe={ recipe } />
         </div>
         <div className="bg-gray-50 w-full">
           <h3 className="text-center text-xl mb-2">Ingredientes</h3>
-          <ListIngredients />
+          <ListIngredients
+            listIngredients={ listIngredients }
+            inProgress={ inProgress }
+          />
         </div>
         <div className="p-3">
-          <h3 className="text-center mt-5 mb-3 text-xl">instruções</h3>
+          <h3 className="text-center mt-5 mb-6 text-xl">instruções</h3>
           <p className="mb-5 text-gray-700">
-            Heat oil in a deep fryer or deep heavy skillet to 365°F (185°C).
-            Warm gravy in saucepan or microwave. Place the fries into the hot
-            oil, and cook until light brown, about 5 minutes. Remove to a paper
-            towel lined plate to drain. Place the fries on a serving platter,
-            and sprinkle the cheese over them. Ladle gravy over the fries and
-            cheese, and serve immediately.
+            {recipe.strInstructions}
           </p>
         </div>
+        {inDetail && '' }
+        <Button>Finalizar Receita</Button>
       </div>
-      <button
-        className="w-full"
-        type="button"
-      >
-        Finalizar Receita
-
-      </button>
     </div>
   );
 }
@@ -58,10 +67,18 @@ function CardDatailsAndInProgressDrinks({ recipe }) {
 CardDatailsAndInProgressDrinks.propTypes = {
   recipe: PropTypes.shape({
     strDrinkThumb: PropTypes.string,
+    strDrink: PropTypes.string,
+    strCategory: PropTypes.string,
+    strInstructions: PropTypes.string,
+    strYoutube: PropTypes.string,
   }),
+  inProgress: PropTypes.bool,
+  inDetail: PropTypes.bool,
 };
 
 CardDatailsAndInProgressDrinks.defaultProps = {
   recipe: {},
+  inProgress: false,
+  inDetail: false,
 };
-export default CardDatailsAndInProgress;
+export default CardDatailsAndInProgressDrinks;
