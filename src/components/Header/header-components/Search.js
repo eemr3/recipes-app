@@ -86,6 +86,9 @@ export default function Search() {
           style={ { color: 'black' } }
         />
         <button
+          className="mx-2 px-5 text-white transition-colors duration-150
+          border border-white rounded-lg focus:shadow-outline
+          hover:text-black"
           type="button"
           onClick={ () => handleClick(searchType) }
         >

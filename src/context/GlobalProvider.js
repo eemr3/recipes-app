@@ -4,12 +4,15 @@ import GlobalContext from './GlobalContext';
 
 function GlobalProvider({ children }) {
   const [searchBar, setSearchBar] = useState([]);
+  const [selectCategory, setSelectCategory] = useState('All');
 
   return (
     <GlobalContext.Provider
       value={ {
         searchBar,
         setSearchBar,
+        selectCategory,
+        setSelectCategory,
       } }
     >
       { children }

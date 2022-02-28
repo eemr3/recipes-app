@@ -6,22 +6,27 @@ import Footer from '../../components/Footer';
 import GroupButton from '../../components/GroupButton';
 import Header from '../../components/Header';
 import Loading from '../../components/Loading';
-import { requestAllDrinks } from '../../services/api';
+import { requestAllDrinks, requestCateforyByNameDrinks } from '../../services/api';
 
 const TWELVE = 12;
 
 function Drinks() {
   const { push } = useHistory();
-  const { searchBar } = useContext(GlobalContext);
+  const { searchBar, selectCategory } = useContext(GlobalContext);
   const [drinks, setDrinks] = useState([]);
-  console.log(searchBar);
+
   useEffect(() => {
     const getDrinks = async () => {
-      const response = await requestAllDrinks();
-      setDrinks(response.slice(0, TWELVE));
+      if (selectCategory === 'All') {
+        const response = await requestAllDrinks();
+        setDrinks(response.slice(0, TWELVE));
+      } else {
+        const response = await requestCateforyByNameDrinks(selectCategory);
+        setDrinks(response.slice(0, TWELVE));
+      }
     };
     getDrinks();
-  }, []);
+  }, [selectCategory]);
 
   useEffect(() => {
     if (searchBar.length === 1) push(`/drinks/${searchBar[0].idDrink}`);
