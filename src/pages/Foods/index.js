@@ -1,21 +1,20 @@
 import React, { useEffect, useState, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
+import { requestAllFoods } from '../../services/api';
 import GlobalContext from '../../context/GlobalContext';
 import Cards from '../../components/Cards';
 import Footer from '../../components/Footer';
 import GroupButton from '../../components/GroupButton';
 import Header from '../../components/Header';
 import Loading from '../../components/Loading';
-import { requestAllFoods } from '../../services/api';
 
 const TWELVE = 12;
-const MESSAGE_ALERT = 'Desculpe, não encontramos nenhuma receita para esses filtros!';
 
 function Foods() {
   const { push } = useHistory();
-  const { searchBar, setSearchBar } = useContext(GlobalContext);
+  const { searchBar } = useContext(GlobalContext);
   const [meals, setMeals] = useState([]);
-  console.log(searchBar);
+
   useEffect(() => {
     const getAllMeals = async () => {
       const respose = await requestAllFoods();
@@ -25,17 +24,11 @@ function Foods() {
   }, []);
 
   useEffect(() => {
-    if (searchBar.length !== 0) {
-      if (searchBar[0] === 'TypeError') {
-        global.alert(MESSAGE_ALERT);
-      }
-      if (searchBar.length === 1) push(`/foods/${searchBar[0].idMeal}`);
-      else if (searchBar > 1) {
-        setMeals(searchBar);
-        setSearchBar([]);
-      }
+    if (searchBar.length === 1) push(`/foods/${searchBar[0].idMeal}`);
+    else if (searchBar.length > 1) {
+      setMeals(searchBar);
     }
-  }, [meals, push, searchBar, setSearchBar]);
+  }, [push, searchBar]);
 
   return (
     <div>

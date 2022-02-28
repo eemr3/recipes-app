@@ -1,12 +1,15 @@
 import React, { useContext, useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import GlobalContext from '../../../context/GlobalContext';
 import {
   requestNameFoods, requestIngredientFoods, requestFirstNameFoods,
+  requestNameDrinks, requestIngredientDrinks, requestFirstNameDrinks,
 } from '../../../services/api';
 
+const MESSAGE_ALERT = 'Desculpe, não encontramos nenhuma receita para esses filtros!';
+
 export default function Search() {
-  const { location: { pathname } } = useHistory();
+  const { pathname } = useLocation();
 
   const { setSearchBar } = useContext(GlobalContext);
   const [search, setSearch] = useState('');
@@ -20,32 +23,37 @@ export default function Search() {
     setSearchType(value);
   };
 
-  const getNameSearch = async (router) => {
-    try {
-      const data = await requestNameFoods(search, router);
-      setSearchBar(data);
-    } catch (error) {
-      console.log(error.name);
-      setSearchBar([error.name]);
+  const getNameSearch = async () => {
+    let data;
+    if (pathname === '/foods') data = await requestNameFoods(search);
+    if (pathname === '/drinks') data = await requestNameDrinks(search);
+    if (data === null || data === undefined) {
+      setSearchBar([]);
+      return global.alert(MESSAGE_ALERT);
     }
+    setSearchBar(data);
   };
 
-  const getIngredientSearch = async (router) => {
-    try {
-      const data = await requestIngredientFoods(search, router);
-      setSearchBar(data);
-    } catch (error) {
-      setSearchBar([error.name]);
+  const getIngredientSearch = async () => {
+    let data;
+    if (pathname === '/foods') data = await requestIngredientFoods(search);
+    if (pathname === '/drinks') data = await requestIngredientDrinks(search);
+    if (data === null || data === undefined) {
+      setSearchBar([]);
+      return global.alert(MESSAGE_ALERT);
     }
+    setSearchBar(data);
   };
 
-  const getFirstNameSearch = async (router) => {
-    try {
-      const data = await requestFirstNameFoods(search, router);
-      setSearchBar(data);
-    } catch (error) {
-      setSearchBar([error.name]);
+  const getFirstNameSearch = async () => {
+    let data;
+    if (pathname === '/foods') data = await requestFirstNameFoods(search);
+    if (pathname === '/drinks') data = await requestFirstNameDrinks(search);
+    if (data === null || data === undefined) {
+      setSearchBar([]);
+      return global.alert(MESSAGE_ALERT);
     }
+    setSearchBar(data);
   };
 
   const handleClick = (type) => {
@@ -56,11 +64,11 @@ export default function Search() {
     setSearch('');
     switch (type) {
     case 'name':
-      return getNameSearch(pathname);
+      return getNameSearch();
     case 'ingredient':
-      return getIngredientSearch(pathname);
+      return getIngredientSearch();
     case 'firstName':
-      return getFirstNameSearch(pathname);
+      return getFirstNameSearch();
     default:
       return null;
     }

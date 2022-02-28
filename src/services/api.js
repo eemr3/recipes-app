@@ -5,7 +5,7 @@ export const requestAllFoods = async () => {
     const data = await response.json();
     return data.meals;
   } catch (error) {
-    console.log(error);
+    console.error(error);
   }
 };
 
@@ -16,7 +16,7 @@ export const requestAllDrinks = async () => {
     const data = await response.json();
     return data.drinks;
   } catch (error) {
-    console.log(error);
+    console.error(error);
   }
 };
 
@@ -27,42 +27,72 @@ export const requestCategoryFoods = async (domain) => {
     const data = await respose.json();
     return data;
   } catch (error) {
-    console.log(error);
+    console.error(error);
   }
 };
 
-export const requestNameFoods = async (name, router) => {
-  let URL = '';
-  if (router === '/foods') {
-    URL = `https://www.themealdb.com/api/json/v1/1/search.php?s=${name}`;
-  } else if (router === '/drinks') {
-    URL = `https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${name}`;
+export const requestNameFoods = async (name) => {
+  const URL = `https://www.themealdb.com/api/json/v1/1/search.php?s=${name}`;
+  try {
+    const response = await fetch(URL);
+    const data = await response.json();
+    return data.meals;
+  } catch (error) {
+    console.error(error);
   }
-  const response = await fetch(URL);
-  const data = await response.json();
-  return data;
 };
 
-export const requestIngredientFoods = async (ingredient, router) => {
-  let URL = '';
-  if (router === '/foods') {
-    URL = `https://www.themealdb.com/api/json/v1/1/filter.php?i=${ingredient}`;
-  } else if (router === '/drinks') {
-    URL = `https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=${ingredient}`;
+export const requestIngredientFoods = async (ingredient) => {
+  const URL = `https://www.themealdb.com/api/json/v1/1/filter.php?i=${ingredient}`;
+  try {
+    const response = await fetch(URL);
+    const data = await response.json();
+    return data.meals;
+  } catch (error) {
+    console.error(error);
   }
-  const response = await fetch(URL);
-  const data = await response.json();
-  return data;
 };
 
-export const requestFirstNameFoods = async (firstName, router) => {
-  let URL = '';
-  if (router === '/foods') {
-    URL = `https://www.themealdb.com/api/json/v1/1/search.php?f=${firstName}`;
-  } else if (router === '/drinks') {
-    URL = `https://www.thecocktaildb.com/api/json/v1/1/search.php?f=${firstName}`;
+export const requestFirstNameFoods = async (firstName) => {
+  const URL = `https://www.themealdb.com/api/json/v1/1/search.php?f=${firstName}`;
+  try {
+    const response = await fetch(URL);
+    const data = await response.json();
+    return data.meals;
+  } catch (error) {
+    console.error(error);
   }
-  const response = await fetch(URL);
-  const data = await response.json();
-  return data;
+};
+
+export const requestNameDrinks = async (name) => {
+  const URL = `https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${name}`;
+  try {
+    const response = await fetch(URL);
+    const data = await response.json();
+    return data.drinks;
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+export const requestIngredientDrinks = async (ingredient) => {
+  const URL = `https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=${ingredient}`;
+  try {
+    const response = await fetch(URL);
+    const data = await response.json();
+    return data.drinks;
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+export const requestFirstNameDrinks = async (firstName) => {
+  const URL = `https://www.thecocktaildb.com/api/json/v1/1/search.php?f=${firstName}`;
+  try {
+    const response = await fetch(URL);
+    const data = await response.json();
+    return data.drinks;
+  } catch (error) {
+    console.error(error);
+  }
 };
