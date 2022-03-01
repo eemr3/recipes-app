@@ -7,7 +7,6 @@ import Carousel from '../Carousel/index';
 
 function CardDatailsAndInProgressFoods({ recipe, inProgress, inDetail }) {
   const [listIngredients, setListIngredients] = useState([]);
-  const [isChecked, setIsChecked] = useState(false);
 
   useEffect(() => {
     const getListIngredients = () => {
@@ -49,8 +48,6 @@ function CardDatailsAndInProgressFoods({ recipe, inProgress, inDetail }) {
         <div className="bg-gray-50 w-full">
           <h3 className="text-center text-xl mb-2">Ingredientes</h3>
           <ListIngredients
-            isChecked={ isChecked }
-            setIsChecked={ setIsChecked }
             listIngredients={ listIngredients }
             inProgress={ inProgress }
           />

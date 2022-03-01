@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import ListIngredientsInput from '../../ListIngredientsInput';
 
 function ListIngredients({ inProgress, listIngredients }) {
   return (
@@ -7,14 +8,13 @@ function ListIngredients({ inProgress, listIngredients }) {
       {listIngredients.map((ingredient, index) => (
         <li key={ index }>
           <label
-            htmlFor={ `${index}-${ingredient}` }
+            htmlFor={ `${index}-${ingredient[0]}` }
           >
             {inProgress
-            && <input
-              type="checkbox"
-              name=""
-              id={ `${index}-${ingredient}` }
-            />}
+              && <ListIngredientsInput
+                idcheck={ `${index}-${ingredient[0]}` }
+                nameIngrediente={ `${ingredient[0]}, ${ingredient[1]}` }
+              />}
             <span
               className="ml-2 text-gray-700"
             >
