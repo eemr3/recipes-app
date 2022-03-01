@@ -3,9 +3,11 @@ import PropTypes from 'prop-types';
 import ListIngredients from './comonent-cardInProgress/ListIngredients';
 import ButtonFavorite from '../ButtonFavorite';
 import Button from './comonent-cardInProgress/Button';
+import Carousel from '../Carousel/index';
 
 function CardDatailsAndInProgressFoods({ recipe, inProgress, inDetail }) {
   const [listIngredients, setListIngredients] = useState([]);
+  const [isChecked, setIsChecked] = useState(false);
 
   useEffect(() => {
     const getListIngredients = () => {
@@ -47,6 +49,8 @@ function CardDatailsAndInProgressFoods({ recipe, inProgress, inDetail }) {
         <div className="bg-gray-50 w-full">
           <h3 className="text-center text-xl mb-2">Ingredientes</h3>
           <ListIngredients
+            isChecked={ isChecked }
+            setIsChecked={ setIsChecked }
             listIngredients={ listIngredients }
             inProgress={ inProgress }
           />
@@ -58,15 +62,22 @@ function CardDatailsAndInProgressFoods({ recipe, inProgress, inDetail }) {
           </p>
         </div>
         {inDetail && (
-          <div className="p-3">
-            <h3 className="text-center mt-5 mb-6 text-xl">Vídeo</h3>
-            <iframe
-              src={ recipe.strYoutube
-                .replace('\\/', '//').replace('/watch?v=', '/embed/') }
-              title="W3Scho"
-              data-testid="video"
-            />
-          </div>) }
+          <div>
+            <div className="p-3 flex flex-col mb-10 lg:w-3/5">
+              <h3 className="text-center mt-5 mb-6 text-xl">Vídeo</h3>
+              <iframe
+                src={ recipe.strYoutube
+                  .replace('\\/', '//').replace('/watch?v=', '/embed/') }
+                title="W3Scho"
+                data-testid="video"
+              />
+            </div>
+            <div className="p-3 flex flex-col mb-10 lg:w-3/5">
+              <h3 className="text-center mt-5 mb-6 text-xl">Recomendações</h3>
+              <Carousel />
+            </div>
+          </div>
+        )}
         <Button>Finalizar Receita</Button>
       </div>
     </div>

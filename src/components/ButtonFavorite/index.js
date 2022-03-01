@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useParams } from 'react-router-dom';
 import WhiteHeartIcons from '../../images/whiteHeartIcon.svg';
 import OrangeHeartIcon from '../../images/blackHeartIcon.svg';
 import ShareIcon from '../../images/shareIcon.svg';
@@ -9,22 +9,27 @@ import setDataForInStorage from '../../functions/dataForSaveInStorage';
 
 function ButtonFavorite({ recipe }) {
   const { pathname } = useLocation();
-
+  const { id } = useParams();
   const [favoritIcon, setFavoritIcon] = useState(false);
+  const [itemsSaveInLocalStorage, setItemsSaveInLocalStorage] = useState([]);
+
+  useEffect(() => {
+    const getSaveStorage = JSON.parse(localStorage.getItem('favoriteRecipes')) || [];
+    setItemsSaveInLocalStorage(getSaveStorage);
+    setFavoritIcon(getSaveStorage.some((item) => item.id === id));
+  }, [id]);
 
   const handleClickFavorite = () => {
-    switch (pathname) {
-    case pathname.includes('foods'):
-      setFavoriteRecipeInSotage(setDataForInStorage(recipe));
+    if (favoritIcon) {
+      const dataForSaveInStorage = itemsSaveInLocalStorage
+        .filter((item) => (item.id !== id));
+      console.log(dataForSaveInStorage);
+      setFavoriteRecipeInSotage(dataForSaveInStorage);
+      setFavoritIcon(false);
+    } else {
+      setFavoriteRecipeInSotage([...itemsSaveInLocalStorage,
+        setDataForInStorage(recipe, pathname)]);
       setFavoritIcon(true);
-      break;
-    // eslint-disable-next-line sonarjs/no-duplicated-branches
-    case pathname.includes('drinks'):
-      setFavoriteRecipeInSotage(setDataForInStorage(recipe));
-      setFavoritIcon(true);
-      break;
-    default:
-      break;
     }
   };
 
