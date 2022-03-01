@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import ListIngredients from './comonent-cardInProgress/ListIngredients';
 import ButtonFavorite from '../ButtonFavorite';
 import Button from './comonent-cardInProgress/Button';
-import Carrucel from '../Carousel/index';
+import Carousel from '../Carousel/index';
 
 function CardDatailsAndInProgressFoods({ recipe, inProgress, inDetail }) {
   const [listIngredients, setListIngredients] = useState([]);
@@ -38,7 +38,7 @@ function CardDatailsAndInProgressFoods({ recipe, inProgress, inDetail }) {
           backgroundSize: 'cover',
         } }
       />
-      <div className="bg-white absolute  w-full md:h-4/5 top-56">
+      <div className="bg-white absolute w-full min-h-screen md:h-4/5 top-56">
         <div className="flex justify-between items-start mt-5 p-2">
           <div className="flex flex-col">
             <h2 className="text-2xl">{recipe.strMeal}</h2>
@@ -74,11 +74,11 @@ function CardDatailsAndInProgressFoods({ recipe, inProgress, inDetail }) {
             </div>
             <div className="p-3 flex flex-col mb-10 lg:w-3/5">
               <h3 className="text-center mt-5 mb-6 text-xl">Recomendações</h3>
-              <Carrucel />
+              <Carousel />
             </div>
           </div>
         )}
-        <Button>Finalizar Receita</Button>
+        <Button>Iniciar Receita</Button>
       </div>
     </div>
   );

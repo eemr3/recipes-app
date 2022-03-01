@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import ListIngredients from './comonent-cardInProgress/ListIngredients';
 import ButtonFavorite from '../ButtonFavorite';
 import Button from './comonent-cardInProgress/Button';
+import Carousel from '../Carousel';
 
 function CardDatailsAndInProgressDrinks({ recipe, inDetail, inProgress }) {
   const [listIngredients, setListIngredients] = useState([]);
@@ -25,7 +26,7 @@ function CardDatailsAndInProgressDrinks({ recipe, inDetail, inProgress }) {
     };
     getListIngredients();
   }, [recipe]);
-
+  console.log(recipe);
   return (
     <div>
       <div
@@ -36,11 +37,11 @@ function CardDatailsAndInProgressDrinks({ recipe, inDetail, inProgress }) {
           backgroundSize: 'cover',
         } }
       />
-      <div className="bg-white absolute  w-full md:h-4/5 top-56">
+      <div className="bg-white absolute w-full min-h-screen md:h-4/5 top-56">
         <div className="flex justify-between items-start mt-5 p-2">
           <div className="flex flex-col">
             <h2 className="text-2xl">{recipe.strDrink}</h2>
-            <p className="text-gray-400 mt-1">{recipe.strCategory}</p>
+            <p className="text-gray-400 mt-1">{recipe.strAlcoholic}</p>
           </div>
           <ButtonFavorite recipe={ recipe } />
         </div>
@@ -57,8 +58,8 @@ function CardDatailsAndInProgressDrinks({ recipe, inDetail, inProgress }) {
             {recipe.strInstructions}
           </p>
         </div>
-        {inDetail && '' }
-        <Button>Finalizar Receita</Button>
+        {inDetail && <Carousel /> }
+        <Button>Iniciar Receita</Button>
       </div>
     </div>
   );
@@ -68,6 +69,7 @@ CardDatailsAndInProgressDrinks.propTypes = {
   recipe: PropTypes.shape({
     strDrinkThumb: PropTypes.string,
     strDrink: PropTypes.string,
+    strAlcoholic: PropTypes.string,
     strCategory: PropTypes.string,
     strInstructions: PropTypes.string,
     strYoutube: PropTypes.string,
