@@ -7,7 +7,6 @@ import Carrucel from '../Carousel/index';
 
 function CardDatailsAndInProgressFoods({ recipe, inProgress, inDetail }) {
   const [listIngredients, setListIngredients] = useState([]);
-  const [isChecked, setIsChecked] = useState(false);
 
   useEffect(() => {
     const getListIngredients = () => {
@@ -38,7 +37,7 @@ function CardDatailsAndInProgressFoods({ recipe, inProgress, inDetail }) {
           backgroundSize: 'cover',
         } }
       />
-      <div className="bg-white absolute  w-full md:h-4/5 top-56">
+      <div className="bg-white absolute w-full min-h-screen md:h-4/5 top-56">
         <div className="flex justify-between items-start mt-5 p-2">
           <div className="flex flex-col">
             <h2 className="text-2xl">{recipe.strMeal}</h2>
@@ -49,8 +48,6 @@ function CardDatailsAndInProgressFoods({ recipe, inProgress, inDetail }) {
         <div className="bg-gray-50 w-full">
           <h3 className="text-center text-xl mb-2">Ingredientes</h3>
           <ListIngredients
-            isChecked={ isChecked }
-            setIsChecked={ setIsChecked }
             listIngredients={ listIngredients }
             inProgress={ inProgress }
           />
