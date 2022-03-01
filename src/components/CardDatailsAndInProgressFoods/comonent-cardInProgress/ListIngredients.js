@@ -1,23 +1,8 @@
 import React from 'react';
-import { useParams } from 'react-router-dom';
 import PropTypes from 'prop-types';
-// import localStorageManagerIngredients from
-// '../../../functions/inProgressLocalStorageManager';
+import ListIngredientsInput from '../../ListIngredientsInput';
 
-function ListIngredients({ inProgress, listIngredients, isChecked, setIsChecked }) {
-  const { id } = useParams();
-  // const [isChecked, setIsChecked] = useState(false);
-
-  const handleChangeChecked = ({ target }) => {
-    const { name } = target;
-    console.log(name, id);
-    setIsChecked(target.checked);
-    // setIsChecked((prevState) => {
-    //   localStorageManagerIngredients(id, name);
-    //   return !prevState;
-    // });
-  };
-
+function ListIngredients({ inProgress, listIngredients }) {
   return (
     <ul className="ml-4">
       {listIngredients.map((ingredient, index) => (
@@ -26,13 +11,10 @@ function ListIngredients({ inProgress, listIngredients, isChecked, setIsChecked 
             htmlFor={ `${index}-${ingredient[0]}` }
           >
             {inProgress
-            && <input
-              id={ `${index}-${ingredient[0]}` }
-              type="checkbox"
-              name={ `${ingredient[0]}, ${ingredient[1]}` }
-              onChange={ handleChangeChecked }
-              checked={ isChecked }
-            />}
+              && <ListIngredientsInput
+                idcheck={ `${index}-${ingredient[0]}` }
+                nameIngrediente={ `${ingredient[0]}, ${ingredient[1]}` }
+              />}
             <span
               className="ml-2 text-gray-700"
             >
@@ -48,15 +30,11 @@ function ListIngredients({ inProgress, listIngredients, isChecked, setIsChecked 
 ListIngredients.propTypes = {
   inProgress: PropTypes.bool,
   listIngredients: PropTypes.arrayOf(),
-  isChecked: PropTypes.bool,
-  setIsChecked: PropTypes.func,
 };
 
 ListIngredients.defaultProps = {
   inProgress: false,
   listIngredients: [],
-  isChecked: false,
-  setIsChecked: () => {},
 };
 
 export default ListIngredients;
