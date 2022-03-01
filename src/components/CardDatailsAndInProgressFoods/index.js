@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import ListIngredients from './comonent-cardInProgress/ListIngredients';
 import ButtonFavorite from '../ButtonFavorite';
 import Button from './comonent-cardInProgress/Button';
+import Carrucel from '../Carousel/index';
 
 function CardDatailsAndInProgressFoods({ recipe, inProgress, inDetail }) {
   const [listIngredients, setListIngredients] = useState([]);
@@ -62,7 +63,7 @@ function CardDatailsAndInProgressFoods({ recipe, inProgress, inDetail }) {
         </div>
         {inDetail && (
           <div>
-            <div className="p-3">
+            <div className="p-3 flex flex-col mb-10 lg:w-3/5">
               <h3 className="text-center mt-5 mb-6 text-xl">Vídeo</h3>
               <iframe
                 src={ recipe.strYoutube
@@ -71,9 +72,9 @@ function CardDatailsAndInProgressFoods({ recipe, inProgress, inDetail }) {
                 data-testid="video"
               />
             </div>
-            <div>
+            <div className="p-3 flex flex-col mb-10 lg:w-3/5">
               <h3 className="text-center mt-5 mb-6 text-xl">Recomendações</h3>
-              <Carousel />
+              <Carrucel />
             </div>
           </div>
         )}
