@@ -36,7 +36,7 @@ function CardDatailsAndInProgressDrinks({ recipe, inDetail, inProgress }) {
           backgroundSize: 'cover',
         } }
       />
-      <div className="bg-white absolute  w-full md:h-4/5 top-56">
+      <div className="bg-white absolute  w-full min-h-screen md:h-4/5 top-56">
         <div className="flex justify-between items-start mt-5 p-2">
           <div className="flex flex-col">
             <h2 className="text-2xl">{recipe.strDrink}</h2>
