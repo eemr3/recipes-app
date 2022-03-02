@@ -4,7 +4,8 @@ import PropTypes from 'prop-types';
 export default function Button({ children, disabled, onClick }) {
   return (
     <button
-      className="w-full bg-orange-500 p-2 text-white fixed bottom-0 left-0"
+      className="w-full bg-orange-500 p-2 text-white fixed bottom-0 left-0
+      disabled:bg-orange-300"
       type="button"
       disabled={ disabled }
       onClick={ onClick }
