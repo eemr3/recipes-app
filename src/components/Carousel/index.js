@@ -13,7 +13,7 @@ export default function Carrousel() {
   const { pathname } = useLocation();
 
   const [recommendation, setRecommendation] = useState([]);
-  console.log(recommendation);
+
   useEffect(() => {
     const getRequestRecommendationFoods = async () => {
       const data = await requestAllFoods();
