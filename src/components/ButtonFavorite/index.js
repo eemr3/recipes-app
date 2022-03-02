@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { useLocation, useParams } from 'react-router-dom';
 import WhiteHeartIcons from '../../images/whiteHeartIcon.svg';
 import OrangeHeartIcon from '../../images/blackHeartIcon.svg';
-import ShareIcon from '../../images/shareIcon.svg';
 import setFavoriteRecipeInSotage from '../../functions/favoriteRecipes';
 import setDataForInStorage from '../../functions/dataForSaveInStorage';
 
@@ -33,16 +32,13 @@ function ButtonFavorite({ recipe }) {
   };
 
   return (
-    <div className="flex justify-end gap-3 mr-2">
-      <img className="w-7" src={ ShareIcon } alt="Share Icon" />
-      <img
-        className="w-7"
-        src={ favoritIcon === false ? WhiteHeartIcons : OrangeHeartIcon }
-        alt="Favorite Icon"
-        onClick={ handleClickFavorite }
-        aria-hidden="true"
-      />
-    </div>
+    <img
+      className="w-7"
+      src={ favoritIcon === false ? WhiteHeartIcons : OrangeHeartIcon }
+      alt="Favorite Icon"
+      onClick={ handleClickFavorite }
+      aria-hidden="true"
+    />
   );
 }
 

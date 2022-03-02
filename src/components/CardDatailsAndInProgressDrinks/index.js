@@ -1,12 +1,20 @@
 import React, { useEffect, useState, useContext } from 'react';
 import PropTypes from 'prop-types';
 import { useHistory, useParams } from 'react-router-dom';
+import Copy from 'clipboard-copy';
+import toast, { Toaster } from 'react-hot-toast';
 import ListIngredients from './comonent-cardInProgress/ListIngredients';
 import ButtonFavorite from '../ButtonFavorite';
 import Button from './comonent-cardInProgress/Button';
 import Carousel from '../Carousel';
 import RecipesContext from '../../context/RecipesContext';
 import validationLocalStorage from '../../functions/validationManager';
+import ShareIcon from '../../images/shareIcon.svg';
+
+const notify = () => toast.success('Link copiado!', {
+  duration: 3000,
+  position: 'top-right',
+});
 
 function CardDatailsAndInProgressDrinks({ recipe, inDetail, inProgress }) {
   const { push } = useHistory();
@@ -39,8 +47,20 @@ function CardDatailsAndInProgressDrinks({ recipe, inDetail, inProgress }) {
     getListIngredients();
   }, [recipe]);
 
+  const handleClickShare = () => {
+    let url = window.location.href;
+    if (inProgress) {
+      url = url.replace('/in-progress', '');
+      Copy(url);
+    } else {
+      Copy(url);
+    }
+    notify();
+  };
+
   return (
     <div>
+      <Toaster />
       <div
         className="fixed top-0 left-0 w-full h-2/5"
         style={ {
@@ -55,7 +75,15 @@ function CardDatailsAndInProgressDrinks({ recipe, inDetail, inProgress }) {
             <h2 className="text-2xl">{recipe.strDrink}</h2>
             <p className="text-gray-400 mt-1">{recipe.strAlcoholic}</p>
           </div>
-          <ButtonFavorite recipe={ recipe } />
+          <div className="flex justify-end gap-3 mr-2">
+            <img
+              src={ ShareIcon }
+              alt="Icon Share"
+              onClick={ handleClickShare }
+              aria-hidden="true"
+            />
+            <ButtonFavorite recipe={ recipe } />
+          </div>
         </div>
         <div className="bg-gray-50 w-full">
           <h3 className="text-center text-xl mb-2">Ingredientes</h3>
