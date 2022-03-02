@@ -1,11 +1,13 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import PropTypes from 'prop-types';
 import ListIngredients from './comonent-cardInProgress/ListIngredients';
 import ButtonFavorite from '../ButtonFavorite';
 import Button from './comonent-cardInProgress/Button';
 import Carousel from '../Carousel';
+import RecipesContext from '../../context/RecipesContext';
 
 function CardDatailsAndInProgressDrinks({ recipe, inDetail, inProgress }) {
+  const { isDisableButton } = useContext(RecipesContext);
   const [listIngredients, setListIngredients] = useState([]);
 
   useEffect(() => {
@@ -26,7 +28,7 @@ function CardDatailsAndInProgressDrinks({ recipe, inDetail, inProgress }) {
     };
     getListIngredients();
   }, [recipe]);
-  console.log(recipe);
+
   return (
     <div>
       <div
@@ -59,7 +61,7 @@ function CardDatailsAndInProgressDrinks({ recipe, inDetail, inProgress }) {
           </p>
         </div>
         {inDetail && <Carousel /> }
-        <Button>Iniciar Receita</Button>
+        <Button disabled={ !isDisableButton }>Iniciar Receita</Button>
       </div>
     </div>
   );

@@ -23,7 +23,6 @@ function ButtonFavorite({ recipe }) {
     if (favoritIcon) {
       const dataForSaveInStorage = itemsSaveInLocalStorage
         .filter((item) => (item.id !== id));
-      console.log(dataForSaveInStorage);
       setFavoriteRecipeInSotage(dataForSaveInStorage);
       setFavoritIcon(false);
     } else {
