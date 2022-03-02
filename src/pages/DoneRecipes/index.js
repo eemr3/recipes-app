@@ -2,6 +2,9 @@ import React from 'react';
 
 export default function DoneRecipes() {
   return (
-    <div>Receitas Prontas</div>
+    <div>
+      <h1>Olá</h1>
+      {' '}
+    </div>
   );
 }

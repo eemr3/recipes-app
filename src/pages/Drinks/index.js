@@ -7,6 +7,7 @@ import GroupButton from '../../components/GroupButton';
 import Header from '../../components/Header';
 import Loading from '../../components/Loading';
 import { requestAllDrinks, requestCateforyByNameDrinks } from '../../services/api';
+import RecipesProvider from '../../context/RecipesProvider';
 
 const TWELVE = 12;
 
@@ -36,29 +37,31 @@ function Drinks() {
   }, [push, searchBar]);
 
   return (
-    <div>
-      <Header title="Bebidas" isSearch />
-      <GroupButton route="drinks" />
+    <RecipesProvider>
       <div>
-        {drinks.length === 0 ? (<Loading />) : (
-          <div
-            className="grid grid-cols-2 mt-4 mb-12
+        <Header title="Bebidas" isSearch />
+        <GroupButton route="drinks" />
+        <div>
+          {drinks.length === 0 ? (<Loading />) : (
+            <div
+              className="grid grid-cols-2 mt-4 mb-12
           sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4
           container mx-auto px-4"
-          >
-            {drinks.map(({ idDrink, strGlass, strDrinkThumb }) => (
-              <Cards
-                key={ idDrink }
-                name={ strGlass }
-                image={ strDrinkThumb }
-                url={ `/drinks/${idDrink}` }
-              />
-            )) }
-          </div>
-        )}
+            >
+              {drinks.map(({ idDrink, strGlass, strDrinkThumb }) => (
+                <Cards
+                  key={ idDrink }
+                  name={ strGlass }
+                  image={ strDrinkThumb }
+                  url={ `/drinks/${idDrink}` }
+                />
+              )) }
+            </div>
+          )}
+        </div>
+        <Footer />
       </div>
-      <Footer />
-    </div>
+    </RecipesProvider>
   );
 }
 

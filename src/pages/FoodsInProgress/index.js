@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import CardDatailsAndInProgressFoods
 from '../../components/CardDatailsAndInProgressFoods';
+import RecipesProvider from '../../context/RecipesProvider';
 import { requestDetailFood } from '../../services/api';
 
 function FoodsInProgress() {
@@ -18,10 +19,13 @@ function FoodsInProgress() {
 
   return (
     inProgressData.length > 0 && (
-      <CardDatailsAndInProgressFoods
-        recipe={ inProgressData[0] }
-        inProgress
-      />)
+      <RecipesProvider>
+        <CardDatailsAndInProgressFoods
+          recipe={ inProgressData[0] }
+          inProgress
+        />
+      </RecipesProvider>
+    )
   );
 }
 

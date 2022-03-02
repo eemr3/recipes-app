@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import { requestDetailDrink } from '../../services/api';
 import CardDatailsAndInProgressDrinks
 from '../../components/CardDatailsAndInProgressDrinks';
+import RecipesProvider from '../../context/RecipesProvider';
 
 function DrinksInProgress() {
   const { id } = useParams();
@@ -18,10 +19,13 @@ function DrinksInProgress() {
 
   return (
     inProgressData.length > 0 && (
-      <CardDatailsAndInProgressDrinks
-        recipe={ inProgressData[0] }
-        inProgress
-      />)
+      <RecipesProvider>
+        <CardDatailsAndInProgressDrinks
+          recipe={ inProgressData[0] }
+          inProgress
+        />
+      </RecipesProvider>
+    )
   );
 }
 
