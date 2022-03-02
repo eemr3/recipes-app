@@ -5,6 +5,7 @@ export default function FavoriteRecipes() {
   return (
     <div>
       <Header title="Comidas Favoritas" />
+      <div />
     </div>
   );
 }
