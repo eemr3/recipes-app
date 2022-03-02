@@ -1,5 +1,6 @@
 import React, { useContext, useState } from 'react';
 import { useLocation } from 'react-router-dom';
+import toast, { Toaster } from 'react-hot-toast';
 import GlobalContext from '../../../context/GlobalContext';
 import {
   requestNameFoods, requestIngredientFoods, requestFirstNameFoods,
@@ -7,6 +8,10 @@ import {
 } from '../../../services/api';
 
 const MESSAGE_ALERT = 'Desculpe, não encontramos nenhuma receita para esses filtros!';
+const notify = () => toast.error(MESSAGE_ALERT, {
+  duration: 3000,
+  position: 'top-right',
+});
 
 export default function Search() {
   const { pathname } = useLocation();
@@ -29,7 +34,7 @@ export default function Search() {
     if (pathname === '/drinks') data = await requestNameDrinks(search);
     if (data === null || data === undefined) {
       setSearchBar([]);
-      return global.alert(MESSAGE_ALERT);
+      return notify();
     }
     setSearchBar(data);
   };
@@ -40,7 +45,7 @@ export default function Search() {
     if (pathname === '/drinks') data = await requestIngredientDrinks(search);
     if (data === null || data === undefined) {
       setSearchBar([]);
-      return global.alert(MESSAGE_ALERT);
+      return notify();
     }
     setSearchBar(data);
   };
@@ -51,7 +56,7 @@ export default function Search() {
     if (pathname === '/drinks') data = await requestFirstNameDrinks(search);
     if (data === null || data === undefined) {
       setSearchBar([]);
-      return global.alert(MESSAGE_ALERT);
+      return notify();
     }
     setSearchBar(data);
   };
@@ -59,7 +64,12 @@ export default function Search() {
   const handleClick = (type) => {
     if (type === 'firstName' && search.length !== 1) {
       setSearch('');
-      return global.alert('Sua pesquisa deve ter apenas 1 (uma) letra!');
+      const notifyFirstName = () => toast
+        .error('Sua pesquisa deve ter apenas 1 (uma) letra!', {
+          duration: 3000,
+          position: 'top-right',
+        });
+      return notifyFirstName();
     }
     setSearch('');
     switch (type) {
@@ -76,6 +86,7 @@ export default function Search() {
 
   return (
     <div className="search-bar">
+      <Toaster />
       <div className="input-search">
         <input
           type="text"
