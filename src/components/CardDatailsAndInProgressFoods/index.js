@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useContext } from 'react';
 import PropTypes from 'prop-types';
+import { useHistory } from 'react-router-dom';
 import ListIngredients from './comonent-cardInProgress/ListIngredients';
 import ButtonFavorite from '../ButtonFavorite';
 import Button from './comonent-cardInProgress/Button';
@@ -7,8 +8,14 @@ import Carousel from '../Carousel/index';
 import RecipesContext from '../../context/RecipesContext';
 
 function CardDatailsAndInProgressFoods({ recipe, inProgress, inDetail }) {
+  const { push } = useHistory();
+
   const { isDisableButton } = useContext(RecipesContext);
   const [listIngredients, setListIngredients] = useState([]);
+
+  const itemLST = JSON.parse(localStorage.getItem('inProgressRecipes')) || null;
+  const countChecked = Number(itemLST.recipesCount.meals[recipe.idMeal]) || 0;
+  const labelButton = countChecked !== 0 ? 'Editar Receita' : 'Iniciar Receita';
 
   useEffect(() => {
     const getListIngredients = () => {
@@ -78,10 +85,12 @@ function CardDatailsAndInProgressFoods({ recipe, inProgress, inDetail }) {
           </div>
         )}
         <Button
-          disabled={ !isDisableButton }
+          disabled={ inProgress ? !isDisableButton : isDisableButton }
+          onClick={ inProgress && isDisableButton
+            ? () => push('/done-recipes')
+            : () => push(`/foods/${recipe.idMeal}/in-progress`) }
         >
-          Iniciar Receita
-
+          { inProgress ? 'Finalizar Receita' : labelButton }
         </Button>
       </div>
     </div>
@@ -90,6 +99,7 @@ function CardDatailsAndInProgressFoods({ recipe, inProgress, inDetail }) {
 
 CardDatailsAndInProgressFoods.propTypes = {
   recipe: PropTypes.shape({
+    idMeal: PropTypes.string,
     strMealThumb: PropTypes.string,
     strMeal: PropTypes.string,
     strCategory: PropTypes.string,
