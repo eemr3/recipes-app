@@ -14,6 +14,7 @@ function ListIngredients({ inProgress, listIngredients }) {
               && <ListIngredientsInput
                 idcheck={ `${index}-${ingredient[0]}` }
                 nameIngrediente={ `${ingredient[0]}, ${ingredient[1]}` }
+                quantityItem={ listIngredients.length }
               />}
             <span
               className="ml-2 text-gray-700"
