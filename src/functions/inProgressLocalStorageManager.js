@@ -1,6 +1,7 @@
 export const localStorageManagerIngredients = (prevState, params) => {
   const key = JSON.parse(localStorage.getItem('inProgressRecipes')) || [];
-  const { id, name, type, countChecked } = params;
+  const { id, name, type, countChecked, quantityItem } = params;
+
   if (prevState) {
     localStorage.setItem(
       'inProgressRecipes',
@@ -8,11 +9,13 @@ export const localStorageManagerIngredients = (prevState, params) => {
         ...key,
         [type]: {
           ...key[type],
-          [id]: key[type] && key[type][id] ? [...key[type][id], name] : [name],
-        },
-        recipesCount: {
-          ...key.recipesCount,
-          [type]: { [id]: countChecked + 1 },
+          [id]: {
+            ingredients: key[type] && key[type][id]
+              ? [...key[type][id].ingredients, name] : [name],
+            recipesCount: countChecked + 1,
+            recipesDone: key[type] && key[type][id]
+              && key[type][id].recipesCount === quantityItem - 1,
+          },
         },
       }),
     );
@@ -23,11 +26,12 @@ export const localStorageManagerIngredients = (prevState, params) => {
         ...key,
         [type]: {
           ...key[type],
-          [id]: key[type][id].filter((item) => item !== name),
-        },
-        recipesCount: {
-          ...key.recipesCount,
-          [type]: { [id]: countChecked - 1 },
+          [id]: {
+            ingredients: key[type][id].ingredients.filter((item) => item !== name),
+            recipesCount: countChecked - 1,
+            recipesDone: key[type] && key[type][id]
+              && key[type][id].recipesCount === quantityItem,
+          },
         },
       }),
     );
@@ -39,19 +43,19 @@ export const getLocalStorageInProgress = (params) => {
   const itemLST = JSON.parse(localStorage.getItem('inProgressRecipes')) || null;
   switch (route) {
   case 'drinks':
-    if (itemLST && itemLST.cocktails && itemLST.cocktails[id]) {
+    if (itemLST && itemLST.cocktails && itemLST.cocktails[id].ingredients) {
       setIsChecked(
-        itemLST.cocktails[id].some((item) => item.includes(nameIngrediente)),
+        itemLST.cocktails[id].ingredients.some((item) => item.includes(nameIngrediente)),
       );
-      setCountChecked(Number(itemLST.recipesCount.cocktails[id]) || 0);
+      setCountChecked(Number(itemLST.cocktails[id].recipesCount) || 0);
     }
     break;
   case 'foods':
     if (itemLST && itemLST.meals && itemLST.meals[id]) {
       setIsChecked(
-        itemLST.meals[id].some((item) => item.includes(nameIngrediente)),
+        itemLST.meals[id].ingredients.some((item) => item.includes(nameIngrediente)),
       );
-      setCountChecked(Number(itemLST.recipesCount.meals[id]) || 0);
+      setCountChecked(Number(itemLST.meals[id].recipesCount) || 0);
     }
     break;
   default:

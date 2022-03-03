@@ -25,7 +25,8 @@ function CardDatailsAndInProgressFoods({ recipe, inProgress, inDetail }) {
   const [labelButton, setLabelButton] = useState('');
 
   useEffect(() => {
-    validationLocalStorage(id, 'meals', setLabelButton);
+    const params = { id, setLabelButton };
+    validationLocalStorage(params, 'meals');
   }, [id]);
 
   useEffect(() => {
@@ -115,14 +116,15 @@ function CardDatailsAndInProgressFoods({ recipe, inProgress, inDetail }) {
             </div>
           </div>
         )}
-        <Button
-          disabled={ inProgress ? !isDisableButton : isDisableButton }
-          onClick={ inProgress && isDisableButton
-            ? () => push('/done-recipes')
-            : () => push(`/foods/${recipe.idMeal}/in-progress`) }
-        >
-          { inProgress ? 'Finalizar Receita' : labelButton }
-        </Button>
+        { (inProgress) && (
+          <Button
+            disabled={ inProgress ? !isDisableButton : isDisableButton }
+            onClick={ inProgress && isDisableButton
+              ? () => push('/done-recipes')
+              : () => push(`/foods/${recipe.idMeal}/in-progress`) }
+          >
+            { inProgress ? 'Finalizar Receita' : labelButton }
+          </Button>) }
       </div>
     </div>
   );

@@ -23,7 +23,7 @@ function Input({ idcheck, nameIngrediente, quantityItem }) {
     const { name } = target;
     const type = pathname.includes('/drinks') ? 'cocktails' : 'meals';
     const params = {
-      id, name, type, countChecked,
+      id, name, type, countChecked, quantityItem,
     };
     setIsChecked(target.checked);
     setIsChecked((prevState) => {
