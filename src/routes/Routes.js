@@ -9,7 +9,7 @@ import Explore from '../pages/Explore';
 import ExploreFoods from '../pages/ExploreFoods';
 import ExploreDrinks from '../pages/ExploreDrinks';
 import ExploreFoodsIngredients from '../pages/ExploreFoodsIngredients';
-import ExploreDrinksIngredinets from '../pages/ExploreDrinksIngredinets';
+import ExploreDrinksIngredients from '../pages/ExploreDrinksIngredients';
 import ExploreFoodsNatinality from '../pages/ExploreFoodsNatinality';
 import Profile from '../pages/Profile';
 import DoneRecipes from '../pages/DoneRecipes';
@@ -17,7 +17,6 @@ import FavoriteRecipes from '../pages/FavoriteRecipes';
 import NotFound from '../pages/NotFound';
 import FoodDetails from '../pages/FoodDetails';
 import DrinkDetails from '../pages/DrinkDetails';
-// import RecipesProvider from '../context/RecipesProvider';
 
 function Routes() {
   return (
@@ -35,14 +34,14 @@ function Routes() {
       <Route exact path="/explore-foods" component={ ExploreFoods } />
       <Route
         exact
-        path="/explore-foods-ingedients"
+        path="/explore-foods-ingredients"
         component={ ExploreFoodsIngredients }
       />
       <Route exact path="/explore-drinks" component={ ExploreDrinks } />
       <Route
         exact
         path="/explore-drinks-ingredients"
-        component={ ExploreDrinksIngredinets }
+        component={ ExploreDrinksIngredients }
       />
       <Route
         exact

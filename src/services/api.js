@@ -140,3 +140,25 @@ export const requestDetailDrink = async (id) => {
     console.error(error);
   }
 };
+
+export const requestRandomRecipesFoods = async () => {
+  const URL = 'https://www.themealdb.com/api/json/v1/1/random.php';
+  try {
+    const response = await fetch(URL);
+    const data = await response.json();
+    return data.meals;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const requestRandomRecipesDrinks = async () => {
+  const URL = ' https://www.thecocktaildb.com/api/json/v1/1/random.php';
+  try {
+    const response = await fetch(URL);
+    const data = await response.json();
+    return data.drinks;
+  } catch (error) {
+    console.log(error);
+  }
+};
