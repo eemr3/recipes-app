@@ -81,6 +81,7 @@ function CardDatailsAndInProgressDrinks({ recipe, inDetail, inProgress }) {
               alt="Icon Share"
               onClick={ handleClickShare }
               aria-hidden="true"
+              className="w-7"
             />
             <ButtonFavorite recipe={ recipe } />
           </div>
@@ -92,11 +93,16 @@ function CardDatailsAndInProgressDrinks({ recipe, inDetail, inProgress }) {
             inProgress={ inProgress }
           />
         </div>
-        <div className="p-3">
-          <h3 className="text-center mt-5 mb-6 text-xl">instruções</h3>
-          <p className="mb-5 text-gray-700">
-            {recipe.strInstructions}
-          </p>
+        <div className="p-5 mb-10">
+          <h3 className="text-center mt-5 mb-6 text-xl">Instruções</h3>
+          {recipe.strInstructions.split('\r\n').map((text, index) => (
+            <p
+              className="text-gray-700 text-justify indent-3 leading-6"
+              key={ index }
+            >
+              {text}
+            </p>
+          ))}
         </div>
         {inDetail && <Carousel /> }
         <Button
