@@ -162,3 +162,36 @@ export const requestRandomRecipesDrinks = async () => {
     console.log(error);
   }
 };
+
+export const requestExploreIngredientesFoods = async () => {
+  const URL = 'https://www.themealdb.com/api/json/v1/1/list.php?i=list';
+  try {
+    const response = await fetch(URL);
+    const data = await response.json();
+    return data.meals;
+  } catch (error) {
+    console.Console(error);
+  }
+};
+
+export const requestExploreIngredientesCocktails = async () => {
+  const URL = ' https://www.thecocktaildb.com/api/json/v1/1/list.php?i=list';
+  try {
+    const response = await fetch(URL);
+    const data = response.json();
+    return data.drinks;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const requestExplorerFoodsByIngredientes = async (name) => {
+  const URL = `https://www.themealdb.com/api/json/v1/1/filter.php?i=${name}`;
+  try {
+    const response = await fetch(URL);
+    const data = await response.json();
+    return data.meals;
+  } catch (error) {
+    console.log(error);
+  }
+};

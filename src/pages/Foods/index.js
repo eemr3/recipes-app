@@ -1,6 +1,9 @@
 import React, { useEffect, useState, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
-import { requestAllFoods, requestCateforyByNameFoods } from '../../services/api';
+import {
+  requestAllFoods,
+  requestCateforyByNameFoods,
+} from '../../services/api';
 import GlobalContext from '../../context/GlobalContext';
 import Cards from '../../components/Cards';
 import Footer from '../../components/Footer';
@@ -16,6 +19,7 @@ function Foods() {
   const {
     searchBar,
     selectCategory,
+    foodByIngredient,
   } = useContext(GlobalContext);
   const [meals, setMeals] = useState([]);
 
@@ -24,6 +28,8 @@ function Foods() {
       if (selectCategory === 'All') {
         const response = await requestAllFoods();
         setMeals(response.slice(0, TWELVE));
+      } else if (foodByIngredient.length > 0) {
+        setMeals(foodByIngredient);
       } else {
         const response = await requestCateforyByNameFoods(selectCategory);
         setMeals(response.slice(0, TWELVE));
@@ -31,7 +37,7 @@ function Foods() {
     };
 
     getAllMeals();
-  }, [selectCategory]);
+  }, [foodByIngredient, selectCategory]);
 
   useEffect(() => {
     if (searchBar.length === 1) push(`/foods/${searchBar[0].idMeal}`);

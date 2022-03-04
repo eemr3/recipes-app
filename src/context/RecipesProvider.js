@@ -5,6 +5,8 @@ import RecipesContext from './RecipesContext';
 function RecipesProvider({ children }) {
   const [countChecked, setCountChecked] = useState(0);
   const [isDisableButton, setIsDisableButton] = useState(false);
+  const [selectCategory, setSelectCategory] = useState('All');
+  const [foodByIngredient, setFoodByIngredient] = useState([]);
 
   return (
     <RecipesContext.Provider
@@ -13,6 +15,10 @@ function RecipesProvider({ children }) {
         setCountChecked,
         isDisableButton,
         setIsDisableButton,
+        selectCategory,
+        setSelectCategory,
+        foodByIngredient,
+        setFoodByIngredient,
       } }
     >
       { children }
