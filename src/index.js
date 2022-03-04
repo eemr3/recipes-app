@@ -1,12 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
+import { Provider } from 'react-redux';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { fas } from '@fortawesome/free-solid-svg-icons';
-import store from './redux/store';
-import './index.css';
+import store from './redux/store/index';
 import App from './App';
+import './index.css';
 import * as serviceWorker from './serviceWorker';
 
 library.add(fas);

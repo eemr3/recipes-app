@@ -4,9 +4,9 @@ const INITIAL_STATE = {
   done: false,
 };
 
-export default globalReducer = (state = INITIAL_STATE, action) => {
-  switch (type) {
-  case 'ISDONE':
+export const globalReducer = (state = INITIAL_STATE, action) => {
+  switch (action.type) {
+  case ISDONE:
     return {
       done: action.done,
     };
@@ -14,3 +14,5 @@ export default globalReducer = (state = INITIAL_STATE, action) => {
     return state;
   }
 };
+
+export default globalReducer;
