@@ -1,8 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { fas } from '@fortawesome/free-solid-svg-icons';
+import store from './redux/store';
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
@@ -11,7 +13,9 @@ library.add(fas);
 
 ReactDOM.render(
   <BrowserRouter>
-    <App />
+    <Provider store={ store }>
+      <App />
+    </Provider>
   </BrowserRouter>,
   document.getElementById('root'),
 );
