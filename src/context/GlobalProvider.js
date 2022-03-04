@@ -5,7 +5,7 @@ import GlobalContext from './GlobalContext';
 function GlobalProvider({ children }) {
   const [searchBar, setSearchBar] = useState([]);
   const [selectCategory, setSelectCategory] = useState('All');
-  const [foodByIngredient, setFoodByIngredient] = useState([]);
+  const [foodAndDrinkByIngredient, setFoodAndDrinkByIngredient] = useState([]);
 
   return (
     <GlobalContext.Provider
@@ -14,8 +14,8 @@ function GlobalProvider({ children }) {
         setSearchBar,
         selectCategory,
         setSelectCategory,
-        foodByIngredient,
-        setFoodByIngredient,
+        foodAndDrinkByIngredient,
+        setFoodAndDrinkByIngredient,
       } }
     >
       { children }

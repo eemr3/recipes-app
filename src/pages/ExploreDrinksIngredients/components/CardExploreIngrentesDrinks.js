@@ -1,19 +1,17 @@
 import React, { useContext } from 'react';
-// import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { useHistory } from 'react-router-dom';
-// import RecipesContext from '../../../context/RecipesContext';
-import { requestExplorerFoodsByIngredientes } from '../../../services/api';
+import { requestExploreDrinksByIngredientes } from '../../../services/api';
 import GlobalContext from '../../../context/GlobalContext';
 
-function CardExploreIngrentesFoods({ name, image }) {
+function CardExploreIngrentesDrinks({ name, image }) {
   const history = useHistory();
   const { setFoodAndDrinkByIngredient, setSelectCategory } = useContext(GlobalContext);
   const handleClickRedirect = async () => {
-    const response = await requestExplorerFoodsByIngredientes(name);
+    const response = await requestExploreDrinksByIngredientes(name);
     setSelectCategory('explore');
     setFoodAndDrinkByIngredient(response);
-    history.push('/foods');
+    history.push('/drinks');
   };
 
   return (
@@ -45,14 +43,14 @@ function CardExploreIngrentesFoods({ name, image }) {
   );
 }
 
-CardExploreIngrentesFoods.propTypes = {
+CardExploreIngrentesDrinks.propTypes = {
   name: PropTypes.string,
   image: PropTypes.string,
 };
 
-CardExploreIngrentesFoods.defaultProps = {
+CardExploreIngrentesDrinks.defaultProps = {
   name: '',
   image: '',
 };
 
-export default CardExploreIngrentesFoods;
+export default CardExploreIngrentesDrinks;

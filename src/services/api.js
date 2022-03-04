@@ -174,11 +174,11 @@ export const requestExploreIngredientesFoods = async () => {
   }
 };
 
-export const requestExploreIngredientesCocktails = async () => {
+export const requestExploreIngredientesDrinks = async () => {
   const URL = ' https://www.thecocktaildb.com/api/json/v1/1/list.php?i=list';
   try {
     const response = await fetch(URL);
-    const data = response.json();
+    const data = await response.json();
     return data.drinks;
   } catch (error) {
     console.log(error);
@@ -191,6 +191,17 @@ export const requestExplorerFoodsByIngredientes = async (name) => {
     const response = await fetch(URL);
     const data = await response.json();
     return data.meals;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const requestExploreDrinksByIngredientes = async (name) => {
+  const URL = `https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=${name}`;
+  try {
+    const response = await fetch(URL);
+    const data = await response.json();
+    return data.drinks;
   } catch (error) {
     console.log(error);
   }

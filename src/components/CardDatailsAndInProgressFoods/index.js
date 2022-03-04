@@ -122,7 +122,7 @@ function CardDatailsAndInProgressFoods({ recipe, inProgress, inDetail }) {
             </div>
           </div>
         )}
-        { (inProgress) && (
+        {
           <Button
             disabled={ inProgress ? !isDisableButton : isDisableButton }
             onClick={ inProgress && isDisableButton
@@ -130,7 +130,8 @@ function CardDatailsAndInProgressFoods({ recipe, inProgress, inDetail }) {
               : () => push(`/foods/${recipe.idMeal}/in-progress`) }
           >
             { inProgress ? 'Finalizar Receita' : labelButton }
-          </Button>) }
+          </Button>
+        }
       </div>
     </div>
   );

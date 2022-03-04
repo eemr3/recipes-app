@@ -45,5 +45,3 @@ function ExploreFoodsIngredients() {
 }
 
 export default ExploreFoodsIngredients;
-
-/* idIngredient: '2', strIngredient */

@@ -19,17 +19,17 @@ function Foods() {
   const {
     searchBar,
     selectCategory,
-    foodByIngredient,
+    foodAndDrinkByIngredient,
   } = useContext(GlobalContext);
   const [meals, setMeals] = useState([]);
 
   useEffect(() => {
     const getAllMeals = async () => {
-      if (selectCategory === 'All') {
+      if (foodAndDrinkByIngredient.length > 0) {
+        setMeals(foodAndDrinkByIngredient);
+      } else if (selectCategory === 'All') {
         const response = await requestAllFoods();
         setMeals(response.slice(0, TWELVE));
-      } else if (foodByIngredient.length > 0) {
-        setMeals(foodByIngredient);
       } else {
         const response = await requestCateforyByNameFoods(selectCategory);
         setMeals(response.slice(0, TWELVE));
@@ -37,7 +37,7 @@ function Foods() {
     };
 
     getAllMeals();
-  }, [foodByIngredient, selectCategory]);
+  }, [foodAndDrinkByIngredient, selectCategory]);
 
   useEffect(() => {
     if (searchBar.length === 1) push(`/foods/${searchBar[0].idMeal}`);

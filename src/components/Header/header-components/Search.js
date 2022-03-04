@@ -16,7 +16,7 @@ const notify = () => toast.error(MESSAGE_ALERT, {
 export default function Search() {
   const { pathname } = useLocation();
 
-  const { setSearchBar } = useContext(GlobalContext);
+  const { setSearchBar, setSelectCategory } = useContext(GlobalContext);
   const [search, setSearch] = useState('');
   const [searchType, setSearchType] = useState('');
 
@@ -62,6 +62,7 @@ export default function Search() {
   };
 
   const handleClick = (type) => {
+    setSelectCategory('search');
     if (type === 'firstName' && search.length !== 1) {
       setSearch('');
       const notifyFirstName = () => toast
