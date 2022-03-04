@@ -7,7 +7,10 @@ import Loading from '../Loading';
 const FIVE = 5;
 
 function GroupButton({ route }) {
-  const { setSelectCategory } = useContext(GlobalContext);
+  const {
+    setSelectCategory,
+    setSearchBar,
+    setFoodAndDrinkByIngredient } = useContext(GlobalContext);
   const [categoryBtn, setCategoryBtn] = useState([]);
 
   useEffect(() => {
@@ -43,7 +46,11 @@ function GroupButton({ route }) {
           className="px-6 py-2 text-sm transition-colors duration-300
             rounded-full shadow-md text-violet-100 bg-orange-500
             hover:bg-orange-600 shadow-orange-400 w-28 m-1"
-          onClick={ () => handleClick('All') }
+          onClick={ () => {
+            handleClick('All');
+            setSearchBar([]);
+            setFoodAndDrinkByIngredient([]);
+          } }
         >
           All
         </button>

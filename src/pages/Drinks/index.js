@@ -13,12 +13,18 @@ const TWELVE = 12;
 
 function Drinks() {
   const { push } = useHistory();
-  const { searchBar, selectCategory } = useContext(GlobalContext);
+  const {
+    searchBar,
+    selectCategory,
+    foodAndDrinkByIngredient,
+  } = useContext(GlobalContext);
   const [drinks, setDrinks] = useState([]);
 
   useEffect(() => {
     const getDrinks = async () => {
-      if (selectCategory === 'All') {
+      if (foodAndDrinkByIngredient.length > 0) {
+        setDrinks(foodAndDrinkByIngredient);
+      } else if (selectCategory === 'All') {
         const response = await requestAllDrinks();
         setDrinks(response.slice(0, TWELVE));
       } else {
@@ -27,7 +33,7 @@ function Drinks() {
       }
     };
     getDrinks();
-  }, [selectCategory]);
+  }, [foodAndDrinkByIngredient, selectCategory]);
 
   useEffect(() => {
     if (searchBar.length === 1) push(`/drinks/${searchBar[0].idDrink}`);
@@ -48,10 +54,10 @@ function Drinks() {
           sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4
           container mx-auto px-4"
             >
-              {drinks.map(({ idDrink, strGlass, strDrinkThumb }) => (
+              {drinks.map(({ idDrink, strDrink, strDrinkThumb }) => (
                 <Cards
                   key={ idDrink }
-                  name={ strGlass }
+                  name={ strDrink }
                   image={ strDrinkThumb }
                   url={ `/drinks/${idDrink}` }
                 />
