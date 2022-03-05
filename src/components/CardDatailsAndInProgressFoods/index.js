@@ -69,7 +69,7 @@ function CardDatailsAndInProgressFoods({ recipe, inProgress, inDetail,
             <img
               src={ ShareIcon }
               alt="Icon Share"
-              onClick={ () => handleClickShare(notify) }
+              onClick={ () => handleClickShare(inProgress, notify) }
               aria-hidden="true"
               className="w-7"
             />

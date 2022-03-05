@@ -13,8 +13,6 @@ export const localStorageManagerIngredients = (prevState, params) => {
             ingredients: key[type] && key[type][id]
               ? [...key[type][id].ingredients, name] : [name],
             recipesCount: countChecked + 1,
-            // recipesDone: key[type] && key[type][id]
-            //   && key[type][id].recipesCount === quantityItem - 1,
           },
         },
       }),
@@ -29,8 +27,6 @@ export const localStorageManagerIngredients = (prevState, params) => {
           [id]: {
             ingredients: key[type][id].ingredients.filter((item) => item !== name),
             recipesCount: countChecked - 1,
-            // recipesDone: key[type] && key[type][id]
-            //   && key[type][id].recipesCount === quantityItem,
           },
         },
       }),
@@ -43,7 +39,7 @@ export const getLocalStorageInProgress = (params) => {
   const itemLST = JSON.parse(localStorage.getItem('inProgressRecipes')) || null;
   switch (route) {
   case 'drinks':
-    if (itemLST && itemLST.cocktails && itemLST.cocktails[id].ingredients) {
+    if (itemLST && itemLST.cocktails && itemLST.cocktails[id]) {
       setIsChecked(
         itemLST.cocktails[id].ingredients.some((item) => item.includes(nameIngrediente)),
       );
