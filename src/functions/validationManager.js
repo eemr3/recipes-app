@@ -10,4 +10,15 @@ const validationLocalStorage = (params, type) => {
   }
 };
 
+export const validationLocalStorageDone = (id, type, callback) => {
+  const itemLST = JSON.parse(localStorage.getItem('inProgressRecipes')) || null;
+  if (itemLST !== null && itemLST[type] && itemLST[type][id]
+    && itemLST[type][id].recipesDone) {
+    const countChecked = itemLST[type][id].recipesDone || false;
+    callback(countChecked);
+  } else {
+    callback(false);
+  }
+};
+
 export default validationLocalStorage;
