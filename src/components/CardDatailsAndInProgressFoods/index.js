@@ -29,7 +29,6 @@ function CardDatailsAndInProgressFoods({ recipe, inProgress, inDetail,
   const [listIngredients, setListIngredients] = useState([]);
   const [labelButton, setLabelButton] = useState('');
 
-  console.log(isDone);
   useEffect(() => {
     const params = { id, setLabelButton };
     validationLocalStorage(params, 'meals');
