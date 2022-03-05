@@ -18,7 +18,7 @@ const getListIngredients = (recipe, callback) => {
 
 const setLocalStorage = (type, id) => {
   const key = JSON.parse(localStorage.getItem('inProgressRecipes')) || [];
-  console.log(key);
+  const now = new Date();
   localStorage.setItem(
     'inProgressRecipes',
     JSON.stringify({
@@ -28,6 +28,7 @@ const setLocalStorage = (type, id) => {
         [id]: {
           ...key[type][id],
           recipesDone: true,
+          doneDate: `${now.getDate()}/${now.getMonth() + 1}/${now.getFullYear()}`,
         },
       },
     }),
