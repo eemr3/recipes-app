@@ -1,14 +1,18 @@
 import React, { useEffect, useState, useContext } from 'react';
 import PropTypes from 'prop-types';
-import Copy from 'clipboard-copy';
 import toast, { Toaster } from 'react-hot-toast';
 import { useHistory, useParams } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { getIsDone } from '../../redux/actions/globalAction';
+import getListIngredients,
+{ handleClickDone, handleClickShare } from '../../functions/functionsInCards';
+import validationLocalStorage,
+{ validationLocalStorageDone } from '../../functions/validationManager';
 import ListIngredients from './comonent-cardInProgress/ListIngredients';
 import ButtonFavorite from '../ButtonFavorite';
 import Button from './comonent-cardInProgress/Button';
 import Carousel from '../Carousel/index';
 import RecipesContext from '../../context/RecipesContext';
-import validationLocalStorage from '../../functions/validationManager';
 import ShareIcon from '../../images/shareIcon.svg';
 
 const notify = () => toast.success('Link copiado!', {
@@ -16,7 +20,8 @@ const notify = () => toast.success('Link copiado!', {
   position: 'top-right',
 });
 
-function CardDatailsAndInProgressFoods({ recipe, inProgress, inDetail }) {
+function CardDatailsAndInProgressFoods({ recipe, inProgress, inDetail,
+  isDone, changeIsDone }) {
   const { push } = useHistory();
   const { id } = useParams();
 
@@ -27,36 +32,20 @@ function CardDatailsAndInProgressFoods({ recipe, inProgress, inDetail }) {
   useEffect(() => {
     const params = { id, setLabelButton };
     validationLocalStorage(params, 'meals');
-  }, [id]);
+    validationLocalStorageDone(id, 'meals', changeIsDone);
+  }, [changeIsDone, id]);
 
   useEffect(() => {
-    const getListIngredients = () => {
-      const listIngredientsAndMeasure = [];
-      const ingredientKeys = Object.keys(recipe)
-        .filter((item) => item.includes('strIngredient'));
-      const measureKeys = Object.keys(recipe)
-        .filter((item) => item.includes('strMeasure'));
-      const ingredients = ingredientKeys.map((key) => recipe[key])
-        .filter((recip) => recip !== '' && recip !== null);
-      const measure = measureKeys.map((key) => recipe[key])
-        .filter((recip) => recip !== '' && recip !== null);
-      for (let index = 0; index < ingredients.length; index += 1) {
-        listIngredientsAndMeasure.push([ingredients[index], measure[index]]);
-      }
-      setListIngredients(listIngredientsAndMeasure);
-    };
-    getListIngredients();
+    getListIngredients(recipe, setListIngredients);
   }, [recipe]);
 
-  const handleClickShare = () => {
-    let url = window.location.href;
-    if (inProgress) {
-      url = url.replace('/in-progress', '');
-      Copy(url);
+  const handleClick = () => {
+    if (inProgress && isDisableButton) {
+      handleClickDone(id, 'meals');
+      push('/done-recipes');
     } else {
-      Copy(url);
+      push(`/foods/${recipe.idMeal}/in-progress`);
     }
-    notify();
   };
 
   return (
@@ -80,7 +69,7 @@ function CardDatailsAndInProgressFoods({ recipe, inProgress, inDetail }) {
             <img
               src={ ShareIcon }
               alt="Icon Share"
-              onClick={ handleClickShare }
+              onClick={ () => handleClickShare(notify) }
               aria-hidden="true"
               className="w-7"
             />
@@ -122,20 +111,25 @@ function CardDatailsAndInProgressFoods({ recipe, inProgress, inDetail }) {
             </div>
           </div>
         )}
-        {
+        { !isDone && (
           <Button
             disabled={ inProgress ? !isDisableButton : isDisableButton }
-            onClick={ inProgress && isDisableButton
-              ? () => push('/done-recipes')
-              : () => push(`/foods/${recipe.idMeal}/in-progress`) }
+            onClick={ handleClick }
           >
             { inProgress ? 'Finalizar Receita' : labelButton }
-          </Button>
-        }
+          </Button>)}
       </div>
     </div>
   );
 }
+
+const mapStateToProps = (state) => ({
+  isDone: state.globalReducer.done,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  changeIsDone: (done) => dispatch(getIsDone(done)),
+});
 
 CardDatailsAndInProgressFoods.propTypes = {
   recipe: PropTypes.shape({
@@ -148,11 +142,17 @@ CardDatailsAndInProgressFoods.propTypes = {
   }),
   inProgress: PropTypes.bool,
   inDetail: PropTypes.bool,
+  isDone: PropTypes.bool,
+  changeIsDone: PropTypes.func,
 };
 
 CardDatailsAndInProgressFoods.defaultProps = {
   recipe: {},
   inProgress: false,
   inDetail: false,
+  isDone: false,
+  changeIsDone: () => {},
 };
-export default CardDatailsAndInProgressFoods;
+
+export default connect(mapStateToProps,
+  mapDispatchToProps)(CardDatailsAndInProgressFoods);

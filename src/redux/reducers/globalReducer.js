@@ -8,6 +8,7 @@ export const globalReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
   case ISDONE:
     return {
+      ...state,
       done: action.done,
     };
   default:

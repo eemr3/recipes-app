@@ -1,6 +1,6 @@
 export const localStorageManagerIngredients = (prevState, params) => {
   const key = JSON.parse(localStorage.getItem('inProgressRecipes')) || [];
-  const { id, name, type, countChecked, quantityItem } = params;
+  const { id, name, type, countChecked } = params;
 
   if (prevState) {
     localStorage.setItem(
@@ -13,8 +13,8 @@ export const localStorageManagerIngredients = (prevState, params) => {
             ingredients: key[type] && key[type][id]
               ? [...key[type][id].ingredients, name] : [name],
             recipesCount: countChecked + 1,
-            recipesDone: key[type] && key[type][id]
-              && key[type][id].recipesCount === quantityItem - 1,
+            // recipesDone: key[type] && key[type][id]
+            //   && key[type][id].recipesCount === quantityItem - 1,
           },
         },
       }),
@@ -29,8 +29,8 @@ export const localStorageManagerIngredients = (prevState, params) => {
           [id]: {
             ingredients: key[type][id].ingredients.filter((item) => item !== name),
             recipesCount: countChecked - 1,
-            recipesDone: key[type] && key[type][id]
-              && key[type][id].recipesCount === quantityItem,
+            // recipesDone: key[type] && key[type][id]
+            //   && key[type][id].recipesCount === quantityItem,
           },
         },
       }),

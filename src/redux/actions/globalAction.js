@@ -1,6 +1,6 @@
 export const ISDONE = 'ISDONE';
 
-export const isDone = (done) => ({
+export const getIsDone = (done) => ({
   type: ISDONE,
   done,
 });
