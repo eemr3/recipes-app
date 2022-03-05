@@ -41,7 +41,7 @@ export const handleClickDone = (id, type) => {
   }
 };
 
-export const handleClickShare = (notify) => {
+export const handleClickShare = (inProgress, notify) => {
   let url = window.location.href;
   if (inProgress) {
     url = url.replace('/in-progress', '');
