@@ -31,21 +31,21 @@ function Routes() {
       <Route exact path="/drinks/:id/in-progress" component={ DrinksInProgress } />
 
       <Route exact path="/explore" component={ Explore } />
-      <Route exact path="/explore-foods" component={ ExploreFoods } />
+      <Route exact path="/explore/foods" component={ ExploreFoods } />
       <Route
         exact
-        path="/explore-foods-ingredients"
+        path="/explore/foods/ingredients"
         component={ ExploreFoodsIngredients }
       />
-      <Route exact path="/explore-drinks" component={ ExploreDrinks } />
+      <Route exact path="/explore/drinks" component={ ExploreDrinks } />
       <Route
         exact
-        path="/explore-drinks-ingredients"
+        path="/explore/drinks/ingredients"
         component={ ExploreDrinksIngredients }
       />
       <Route
         exact
-        path="/explore-foods-nationality"
+        path="/explore/foods/nationality"
         component={ ExploreFoodsNatinality }
       />
       <Route exact path="/profile" component={ Profile } />
