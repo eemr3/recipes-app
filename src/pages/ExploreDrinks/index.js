@@ -32,7 +32,7 @@ function ExploreDrinks() {
           className="px-6 py-2 text-sm transition-colors duration-300
             rounded-full shadow-md text-violet-100 bg-orange-500
             hover:bg-orange-600 shadow-orange-400 w-3/4 m-1"
-          onClick={ () => history.push('/explore-drinks-ingredients') }
+          onClick={ () => history.push('/explore/drinks/ingredients') }
         >
           Por Ingredientes
 
