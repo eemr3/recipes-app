@@ -6,7 +6,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 export default function NavIcons({ title, isSearch, enable, setEnable }) {
   return (
     <div className="nav-icons">
-      <Link to="/foods">
+      <Link to="/profile">
         <FontAwesomeIcon icon="fa-solid fa-user" size="2x" color="#f5f5f5" />
       </Link>
       <h1 className="title">{ title }</h1>
