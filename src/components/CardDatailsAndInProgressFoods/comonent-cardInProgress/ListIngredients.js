@@ -7,21 +7,18 @@ function ListIngredients({ inProgress, listIngredients }) {
     <ul className="ml-4">
       {listIngredients.map((ingredient, index) => (
         <li key={ index }>
-          <label
-            htmlFor={ `${index}-${ingredient[0]}` }
+          <ListIngredientsInput
+            inProgress={ inProgress }
+            idcheck={ `${index}-${ingredient[0]}` }
+            nameIngrediente={ `${ingredient[0]}, ${ingredient[1]}` }
+            quantityItem={ listIngredients.length }
           >
-            {inProgress
-              && <ListIngredientsInput
-                idcheck={ `${index}-${ingredient[0]}` }
-                nameIngrediente={ `${ingredient[0]}, ${ingredient[1]}` }
-                quantityItem={ listIngredients.length }
-              />}
             <span
               className="ml-2 text-gray-700"
             >
               {`${ingredient[0]} - ${ingredient[1]}`}
             </span>
-          </label>
+          </ListIngredientsInput>
         </li>
       ))}
     </ul>

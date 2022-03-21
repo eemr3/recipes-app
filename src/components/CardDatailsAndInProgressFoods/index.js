@@ -52,15 +52,19 @@ function CardDatailsAndInProgressFoods({ recipe, inProgress, inDetail,
     <div>
       <Toaster />
       <div
-        className="fixed top-0 left-0 w-full h-2/5"
+        className="fixed top-0 left-0 w-full h-2/5 bg-cover md:h-5/6"
         style={ {
           backgroundImage: `url(${recipe.strMealThumb})`,
-          backgroundRepeat: 'no-repeat',
-          backgroundSize: 'cover',
         } }
       />
-      <div className="bg-white absolute w-full min-h-screen md:h-4/5 top-56">
-        <div className="flex justify-between items-start mt-5 p-2">
+      <div
+        className="bg-white absolute w-full
+        min-h-screen top-56 md:top-96"
+      >
+        <div
+          className="flex justify-between items-start mt-5 p-2 md:container
+          md:mx-auto"
+        >
           <div className="flex flex-col">
             <h2 className="text-2xl">{recipe.strMeal}</h2>
             <p className="text-gray-400 mt-1">{recipe.strCategory}</p>
@@ -76,14 +80,14 @@ function CardDatailsAndInProgressFoods({ recipe, inProgress, inDetail,
             <ButtonFavorite recipe={ recipe } />
           </div>
         </div>
-        <div className="bg-gray-50 w-full">
+        <div className="bg-gray-50 w-full md:container md:mx-auto md:py-5">
           <h3 className="text-center text-xl mb-2">Ingredientes</h3>
           <ListIngredients
             listIngredients={ listIngredients }
             inProgress={ inProgress }
           />
         </div>
-        <div className="p-5 mb-10">
+        <div className="p-5 mb-10 md:container md:mx-auto">
           <h3 className="text-center mt-5 mb-6 text-xl">Instruções</h3>
           {recipe.strInstructions.split('\r\n').map((text, index) => (
             <p
@@ -96,16 +100,20 @@ function CardDatailsAndInProgressFoods({ recipe, inProgress, inDetail,
         </div>
         {inDetail && (
           <div>
-            <div className="p-3 flex flex-col mb-10 lg:w-3/5">
+            <div
+              className="p-3 flex flex-col mb-10 lg:w-3/5 md:container
+            md:mx-auto md:h-96"
+            >
               <h3 className="text-center mt-5 mb-6 text-xl">Vídeo</h3>
               <iframe
+                className="md:h-full"
                 src={ recipe.strYoutube
                   .replace('\\/', '//').replace('/watch?v=', '/embed/') }
                 title="W3Scho"
                 data-testid="video"
               />
             </div>
-            <div className="p-3 flex flex-col mb-10 lg:w-3/5">
+            <div className="p-3 flex flex-col mb-10 md:w-full">
               <h3 className="text-center mt-5 mb-6 text-xl">Recomendações</h3>
               <Carousel />
             </div>

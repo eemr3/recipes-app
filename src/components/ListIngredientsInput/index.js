@@ -11,7 +11,7 @@ import
 } from '../../functions/inProgressLocalStorageManager';
 import RecipesContext from '../../context/RecipesContext';
 
-function Input({ idcheck, nameIngrediente, quantityItem }) {
+function Input({ idcheck, inProgress, children, nameIngrediente, quantityItem }) {
   const { id } = useParams();
   const { countChecked,
     setCountChecked,
@@ -45,14 +45,20 @@ function Input({ idcheck, nameIngrediente, quantityItem }) {
   }, [countChecked, quantityItem, setIsDisableButton]);
 
   return (
-    <input
-      id={ idcheck }
-      type="checkbox"
-      name={ nameIngrediente }
-      onChange={ handleChange }
-      checked={ isChecked }
-
-    />
+    <label
+      htmlFor={ idcheck }
+      className={ isChecked ? 'line-through' : '' }
+    >
+      {inProgress
+      && <input
+        id={ idcheck }
+        type="checkbox"
+        name={ nameIngrediente }
+        onChange={ handleChange }
+        checked={ isChecked }
+      />}
+      {children}
+    </label>
   );
 }
 
@@ -60,12 +66,18 @@ Input.propTypes = {
   idcheck: PropTypes.string,
   nameIngrediente: PropTypes.string,
   quantityItem: PropTypes.number,
+  children: PropTypes.oneOfType([
+    PropTypes.arrayOf(PropTypes.node),
+    PropTypes.node,
+  ]).isRequired,
+  inProgress: PropTypes.bool,
 };
 
 Input.defaultProps = {
   idcheck: '',
   nameIngrediente: '',
   quantityItem: 0,
+  inProgress: false,
 };
 
 export default Input;
