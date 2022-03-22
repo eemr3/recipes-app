@@ -2,7 +2,7 @@ const setDataForInStorage = (data, pathname) => {
   if (pathname.includes('foods')) {
     return {
       id: data.idMeal,
-      type: 'Comida',
+      type: 'meals',
       nationality: data.strArea,
       category: data.strCategory,
       alcoholicOrNot: data.strAlcoholic,
@@ -13,7 +13,7 @@ const setDataForInStorage = (data, pathname) => {
   if (pathname.includes('drinks')) {
     return {
       id: data.idDrink,
-      type: 'Bebida',
+      type: 'drinks',
       nationality: data.strArea,
       category: data.strCategory,
       alcoholicOrNot: data.strAlcoholic,
