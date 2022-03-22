@@ -22,7 +22,6 @@ function ButtonFavorite({ recipe, favoriteId, favorite }) {
 
   const handleClickFavorite = () => {
     const validId = id || favoriteId;
-    console.log(validId);
     if (favoritIcon) {
       const dataForSaveInStorage = favoriteStorage
         .filter((item) => item.id !== validId);
