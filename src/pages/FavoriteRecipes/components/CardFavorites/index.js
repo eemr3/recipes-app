@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import ShareIcon from '../../../../images/shareIcon.svg';
 import ButtonFavorite from '../../../../components/ButtonFavorite';
 
-export default function CardFavorites({ categoty, nationality, name, image }) {
+export default function CardFavorites({ categoty, nationality, name, image, id }) {
   return (
     <div
       className="h-36 border flex shadow-md rounded-lg m-3"
@@ -34,7 +34,10 @@ export default function CardFavorites({ categoty, nationality, name, image }) {
             aria-hidden="true"
             className="w-7"
           />
-          <ButtonFavorite />
+          <ButtonFavorite
+            favoriteId={ id }
+            favorite
+          />
         </div>
       </div>
     </div>
@@ -46,6 +49,7 @@ CardFavorites.propTypes = {
   nationality: PropTypes.string,
   name: PropTypes.string,
   image: PropTypes.string,
+  id: PropTypes.string,
 };
 
 CardFavorites.defaultProps = {
@@ -53,4 +57,5 @@ CardFavorites.defaultProps = {
   nationality: '',
   name: '',
   image: '',
+  id: '',
 };
