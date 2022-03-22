@@ -7,6 +7,7 @@ import { validationgetDoneRecipes } from '../../functions/validationManager';
 export default function DoneRecipes() {
   const [doneFoods, setDoneFoods] = useState([]);
   const [doneDrinks, setDoneDrinks] = useState([]);
+  const [renderDones, setRenderDones] = useState([]);
 
   useEffect(() => {
     const getDoneStorage = JSON.parse(localStorage
@@ -32,15 +33,25 @@ export default function DoneRecipes() {
     }
   }, []);
 
+  useEffect(() => {
+    setRenderDones(doneFoods.concat(doneDrinks));
+  }, [doneDrinks, doneFoods]);
+
+  const handleClick = (type) => {
+    if (type === 'meals') return setRenderDones(doneFoods);
+    if (type === 'drinks') return setRenderDones(doneDrinks);
+    setRenderDones(doneFoods.concat(doneDrinks));
+  };
+
   return (
     <div>
       <Header title="Receitas Feitas" />
-      <GroupButtonDone />
+      <GroupButtonDone handleClick={ handleClick } />
       <div
         className="grid grid-col-1 md:grid-cols-3 lg:grid-cols-4 gap-3
         justify-items-center"
       >
-        {doneFoods.concat(doneDrinks).map(({
+        {renderDones.map(({
           id,
           title,
           image,
