@@ -9,6 +9,7 @@ function GlobalProvider({ children }) {
   const [selectCategory, setSelectCategory] = useState('All');
   const [foodAndDrinkByIngredient, setFoodAndDrinkByIngredient] = useState([]);
   const [allFoods, setAllFoods] = useState([]);
+  const [favoriteStorage, setFavoriteStorage] = useState([]);
 
   useEffect(() => {
     const getAllFodds = async () => {
@@ -28,6 +29,8 @@ function GlobalProvider({ children }) {
         foodAndDrinkByIngredient,
         setFoodAndDrinkByIngredient,
         allFoods,
+        favoriteStorage,
+        setFavoriteStorage,
       } }
     >
       { children }

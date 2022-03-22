@@ -1,31 +1,35 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import PropTypes from 'prop-types';
 import { useLocation, useParams } from 'react-router-dom';
 import WhiteHeartIcons from '../../images/whiteHeartIcon.svg';
 import OrangeHeartIcon from '../../images/blackHeartIcon.svg';
-import setFavoriteRecipeInSotage from '../../functions/favoriteRecipes';
+import setFavoriteRecipeInStorage from '../../functions/favoriteRecipes';
 import setDataForInStorage from '../../functions/dataForSaveInStorage';
+import GlobalContext from '../../context/GlobalContext';
 
-function ButtonFavorite({ recipe }) {
+function ButtonFavorite({ recipe, favoriteId, favorite }) {
+  const { setFavoriteStorage, favoriteStorage } = useContext(GlobalContext);
   const { pathname } = useLocation();
   const { id } = useParams();
   const [favoritIcon, setFavoritIcon] = useState(false);
-  const [itemsSaveInLocalStorage, setItemsSaveInLocalStorage] = useState([]);
 
   useEffect(() => {
-    const getSaveStorage = JSON.parse(localStorage.getItem('favoriteRecipes')) || [];
-    setItemsSaveInLocalStorage(getSaveStorage);
-    setFavoritIcon(getSaveStorage.some((item) => item.id === id));
-  }, [id]);
+    const validId = id || favoriteId;
+    setFavoriteStorage(JSON.parse(localStorage.getItem('favoriteRecipes')) || []);
+    setFavoritIcon(favoriteStorage.some((item) => item.id === validId));
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const handleClickFavorite = () => {
+    const validId = id || favoriteId;
     if (favoritIcon) {
-      const dataForSaveInStorage = itemsSaveInLocalStorage
-        .filter((item) => (item.id !== id));
-      setFavoriteRecipeInSotage(dataForSaveInStorage);
-      setFavoritIcon(false);
+      const dataForSaveInStorage = favoriteStorage
+        .filter((item) => item.id !== validId);
+      setFavoriteRecipeInStorage(dataForSaveInStorage);
+      setFavoriteStorage(dataForSaveInStorage);
+      if (!favorite) setFavoritIcon(false);
     } else {
-      setFavoriteRecipeInSotage([...itemsSaveInLocalStorage,
+      setFavoriteRecipeInStorage([...favoriteStorage,
         setDataForInStorage(recipe, pathname)]);
       setFavoritIcon(true);
     }
@@ -52,9 +56,13 @@ ButtonFavorite.propTypes = {
     strTags: PropTypes.string,
     strAlcoholic: PropTypes.string,
   }),
+  favoriteId: PropTypes.string,
+  favorite: PropTypes.bool,
 };
 
 ButtonFavorite.defaultProps = {
   recipe: {},
+  favoriteId: '',
+  favorite: false,
 };
 export default ButtonFavorite;
