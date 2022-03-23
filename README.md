@@ -69,7 +69,7 @@ Acesse no navegador
 </table>
 <table>
   <tr>
-    <td align="center"><a href=https://github.com/rafaelsantosmg"><img style="border-radius: 50%;" src="https://avatars.githubusercontent.com/u/68519691?v=4" width="100px;" alt=""/><br /><sub><b>Rafael Santos</b></sub></a><br /><a href="https://github.com/Lucas-Fer" title="Lucas-Fer"></a></td>
+    <td align="center"><a href="https://github.com/rafaelsantosmg"><img style="border-radius: 50%;" src="https://avatars.githubusercontent.com/u/68519691?v=4" width="100px;" alt=""/><br /><sub><b>Rafael Santos</b></sub></a><br /><a href="https://github.com/Lucas-Fer" title="Lucas-Fer"></a></td>
     <td align="center"><a href="https://github.com/eemr3"><img style="border-radius: 50%;" src="https://avatars.githubusercontent.com/u/42968718?v=4" width="100px;" alt=""/><br /><sub><b>Emerson Moreira</b></sub></a><br /><a href="https://github.com/eemr3/" title="eemr3"></a></td>
   </tr>
 </table>
