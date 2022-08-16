@@ -26,6 +26,10 @@ App de receitas, utilizando o que há de mais moderno dentro do ecossistema Reac
 
 ## Demonstração
 
+- Para fazer o login inicial basta utilizar as informações abaixo!
+- email alguem@alguem.com.br
+- senha 12345678
+
 #### 🚀 [Recipes App](https://recipes-re-appl.vercel.app/)
 
 ## Stack utilizada
